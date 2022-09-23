@@ -1,11 +1,11 @@
-import fastify from "fastify";
-import productRouter from "./service/product/router";
+import fastify from 'fastify';
+import productRouter from './service/product/router';
 
 const server = fastify({
   logger: true,
 });
 
-server.register(productRouter, { prefix: "/product" });
+server.register(productRouter, { prefix: '/product' });
 
 const startServer = async () => {
   try {

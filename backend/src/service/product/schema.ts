@@ -1,15 +1,15 @@
-import { FastifySchema } from "fastify";
+import { FastifySchema } from 'fastify';
 
 const productResourceSchema = {
-  type: "array",
+  type: 'array',
   items: {
-    type: "object",
+    type: 'object',
     properties: {
       id: {
-        type: "string",
+        type: 'string',
       },
       name: {
-        type: "string",
+        type: 'string',
       },
     },
   },
