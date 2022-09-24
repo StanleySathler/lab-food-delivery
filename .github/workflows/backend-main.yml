@@ -3,7 +3,7 @@ name: Backend QA
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "backend/**"
 
