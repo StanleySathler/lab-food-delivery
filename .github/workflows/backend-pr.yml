@@ -1,4 +1,4 @@
-name: Backend QA
+name: "PR: Backend QA"
 
 on:
   pull_request:
