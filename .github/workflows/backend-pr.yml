@@ -14,7 +14,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run unit and integration tests
-        uses: ./.github/actions/test
+      - uses: actions/setup-node@v2
         with:
-          service: backend
+          node-version: 16
+
+      - name: Install npm modules
+        shell: bash
+        run: |
+          cd backend
+          npm ci
+
+      - name: Run tests
+        shell: bash
+        run: |
+          cd backend
+          npm run test:unit
