@@ -1,2 +1,5 @@
+# This file is a configuration file for the `actions/labeler` we use
+# in our `labeler` workflow.
+
 backend:
   - backend/**/*
