@@ -1,0 +1,21 @@
+name: "Run tests"
+description: "Runs test in repository"
+
+inputs:
+  service:
+    required: true
+    description: "The service to test"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node and install npm dependencies
+      uses: ./.github/actions/node
+      with:
+        service: ${{ inputs.service }}
+
+    - name: Run tests
+      shell: bash
+      run: |
+        cd ${{ inputs.service }}
+        npm run test
