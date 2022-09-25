@@ -6,6 +6,4 @@ WORKDIR /app
 
 RUN npm ci
 
-EXPOSE 3000
-
 ENTRYPOINT ["npm run start"]

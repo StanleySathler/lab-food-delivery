@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node .",
-    "start:dev": "nodemon",
+    "start:local": "dotenv -e env/development.env -- nodemon",
     "test:unit:watch": "jest --watch --coverage=false",
     "test:unit": "jest"
   },
@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv-cli": "^6.0.0",
     "fastify": "^4.6.0"
   },
   "devDependencies": {
