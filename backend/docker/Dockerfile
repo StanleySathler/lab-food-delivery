@@ -5,5 +5,6 @@ COPY ./backend /app
 WORKDIR /app
 
 RUN npm ci
+RUN npm run build
 
-ENTRYPOINT ["npm run start"]
+ENTRYPOINT ["/app/docker/entrypoint.sh"]

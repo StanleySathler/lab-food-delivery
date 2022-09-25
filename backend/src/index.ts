@@ -2,6 +2,8 @@ import { buildServer } from './server';
 
 const server = buildServer();
 
+console.log('> hihi ', process.env);
+
 const startServer = async () => {
   try {
     await server.listen({ port: Number(process.env.PORT) });
