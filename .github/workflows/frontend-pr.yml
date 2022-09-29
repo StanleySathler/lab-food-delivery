@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           cd frontend
-          npm run ci
+          npm ci
 
       - name: Run tests
         shell: bash
