@@ -28,4 +28,4 @@ jobs:
         shell: bash
         run: |
           cd frontend
-          npm run test
+          npm run test:unit
