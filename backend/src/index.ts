@@ -3,6 +3,7 @@ import { buildServer } from './server';
 const server = buildServer();
 
 console.log('> hihi ', process.env);
+console.log('> halo');
 
 const startServer = async () => {
   try {
