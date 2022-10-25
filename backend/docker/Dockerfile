@@ -1,4 +1,3 @@
-# Install node
 FROM node:current-alpine3.16
 
 COPY ./backend /app
