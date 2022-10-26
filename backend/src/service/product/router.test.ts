@@ -18,6 +18,9 @@ describe('List products', () => {
       url: '/product',
     });
 
-    expect(response.json()).toStrictEqual([{ id: '1', name: 'Cup Cake' }]);
+    expect(response.json()).toStrictEqual([
+      { id: '1', name: 'Cup Cake' },
+      { id: '2', name: 'Donut' },
+    ]);
   });
 });

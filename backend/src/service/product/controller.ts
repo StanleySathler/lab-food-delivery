@@ -4,5 +4,8 @@ export const listProducts = async (
   request: FastifyRequest,
   reply: FastifyReply
 ) => {
-  return reply.status(200).send([{ id: 1, name: 'Cup Cake' }]);
+  return reply.status(200).send([
+    { id: 1, name: 'Cup Cake' },
+    { id: 2, name: 'Donut' },
+  ]);
 };
