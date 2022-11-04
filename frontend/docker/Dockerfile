@@ -2,7 +2,10 @@
 FROM node:18-alpine AS dependencies
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY ./frontend/package.json ./frontend/package-lock.json ./
+COPY ./frontend/package.json ./
+COPY ./frontend/package-lock.json ./
+RUN pwd
+RUN ls -l
 RUN npm ci --only=production
 
 # This image is cached and only rebuilt if the build output changes.
