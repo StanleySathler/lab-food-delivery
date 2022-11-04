@@ -20,7 +20,9 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Shortcut commands
 
+Ps. Run Docker commands from root dir, just like GCP does.
+
 ```bash
-docker build -t lab-food-delivery-frontend -f ./docker/Dockerfile .
+docker build -t lab-food-delivery-frontend -f ./frontend/docker/Dockerfile .
 docker run --env PORT=3000 -it -p 8080:3000 lab-food-delivery-frontend
 ```
