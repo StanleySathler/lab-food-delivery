@@ -1,35 +1,31 @@
-####### 
-# Builder image
-#######
-FROM node:lts-alpine as builder
+# This image is cached and only rebuilt if any dependencies change.
+FROM node:18-alpine AS dependencies
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --only=production
 
-# By only copying package.json, before running npm install, we can leverage dockers caching strategy for steps. 
-# Otherwise docker needs to run npm install every time you change any of the code.
-# Ref: https://dev.to/johannesvitt/deploy-a-react-app-on-gcp-with-google-cloud-run-il3
-COPY package.json ./
-RUN npm install
-
-# Copy source code as usual.
-RUN mkdir /app
-RUN mv ./node_modules ./app
+# This image is cached and only rebuilt if the build output changes.
+FROM node:18-alpine AS builder
 WORKDIR /app
 COPY . .
-
-# Build static files.
+COPY --from=dependencies /app/node_modules ./node_modules
 RUN npm run build
 
-####### 
-# Web Server image
-#######
-FROM nginx:alpine
+# Production image, copy all the files and run next
+FROM node:18-alpine AS runner
+WORKDIR /app
 
-# copy the .conf template
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+ENV NODE_ENV production
 
-## Remove default nginx index page and replace it with the static files we created in the first step
-RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /app/.next /usr/share/nginx/html
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
 
-# Run Nginx on Foreground, not Background.
-# Ref: https://stackoverflow.com/questions/18861300/how-to-run-nginx-within-a-docker-container-without-halting
-CMD nginx -g 'daemon off;'
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
+# EXPOSE 3000
+
+CMD ["npm", "start"]
