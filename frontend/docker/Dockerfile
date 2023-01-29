@@ -16,7 +16,7 @@ WORKDIR /app
 COPY ./frontend .
 COPY --from=dependencies /app/node_modules ./node_modules
 # @todo: not best place to put prod env vars, but works for now
-ENV NEXT_PUBLIC_API_URL http://api.lab-food-delivery.store
+ENV NEXT_PUBLIC_API_URL https://api.lab-food-delivery.store
 RUN npm run build
 
 ##
