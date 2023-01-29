@@ -1,13 +1,16 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 
+// on prod, URL should be `api.lab-food-delivery.store`
 const fetchProducts = async () => {
   try {
-    const a = await fetch("http://localhost:3000/product");
-    const d = await a.json();
-    return d;
+    const res = await fetch(
+      (process.env.NEXT_PUBLIC_API_URL || "") + "/product"
+    );
+    return await res.json();
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    return [];
   }
 };
 
