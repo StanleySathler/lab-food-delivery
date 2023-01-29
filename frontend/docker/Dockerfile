@@ -19,7 +19,10 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
+# @todo: make these more flexible, as it prevents us from 
+# running Docker locally
 ENV NODE_ENV production
+ENV NEXT_PUBLIC_API_URL http://api.lab-food-delivery.store
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
