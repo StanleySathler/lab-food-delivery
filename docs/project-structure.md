@@ -7,4 +7,4 @@ Use this document if:
 Basically,
 
 - backend/ - Node + Fastify, REST, monolith API;
-- frontend/ - React + Vite, web application;
+- frontend/ - Next.js app;
