@@ -31,7 +31,7 @@ const Home: NextPage = () => {
       <header className="bg-white border-b sticky top-0 z-20">
         <div className="max-w-6xl mx-auto flex items-center gap-4 py-3 px-4">
           <div className="brand">
-            <a href="#" className="text-red-600 font-bold text-lg no-underline">iFood</a>
+            <a href="#" className="text-amber-600 font-bold text-lg no-underline">FooDelivery</a>
           </div>
 
           <div className="flex-1">
@@ -39,12 +39,9 @@ const Home: NextPage = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <button className="text-sm text-left border border-gray-200 rounded-md px-3 py-2">
-              Deliver to
-              <br />
-              <strong className="font-semibold">123 Example St</strong>
+            <button className="text-left border border-gray-200 rounded-md px-4 py-2 min-w-[180px]">
+              Address: 123 Example St
             </button>
-            <button className="border border-gray-200 rounded-md px-3 py-2">Sign in</button>
             <button className="border border-gray-200 rounded-md px-3 py-2">Cart</button>
           </div>
         </div>
