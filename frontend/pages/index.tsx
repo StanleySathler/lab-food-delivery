@@ -28,12 +28,36 @@ const Home: NextPage = () => {
 
   return (
     <div>
+      <header className="bg-white border-b sticky top-0 z-20">
+        <div className="max-w-6xl mx-auto flex items-center gap-4 py-3 px-4">
+          <div className="brand">
+            <a href="#" className="text-red-600 font-bold text-lg no-underline">iFood</a>
+          </div>
+
+          <div className="flex-1">
+            <input className="w-full px-3 py-2 rounded-md border border-gray-200" placeholder="Busque por restaurantes ou itens" />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button className="text-sm text-left border border-gray-200 rounded-md px-3 py-2">
+              Entregar em
+              <br />
+              <strong className="font-semibold">Rua Exemplo, 123</strong>
+            </button>
+            <button className="border border-gray-200 rounded-md px-3 py-2">Entrar</button>
+            <button className="border border-gray-200 rounded-md px-3 py-2">Carrinho</button>
+          </div>
+        </div>
+      </header>
+
       <main>
-        <ul>
-          {products.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
-        </ul>
+        <section className="max-w-6xl mx-auto mt-4 px-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {products.map((product) => (
+              <li key={product.id} className="bg-gray-50 p-3 rounded-lg border border-gray-100">{product.name}</li>
+            ))}
+          </ul>
+        </section>
       </main>
     </div>
   );
