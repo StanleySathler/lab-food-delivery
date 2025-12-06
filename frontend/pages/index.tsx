@@ -35,17 +35,17 @@ const Home: NextPage = () => {
           </div>
 
           <div className="flex-1">
-            <input className="w-full px-3 py-2 rounded-md border border-gray-200" placeholder="Busque por restaurantes ou itens" />
+            <input className="w-full px-3 py-2 rounded-md border border-gray-200" placeholder="Search for restaurants or items" />
           </div>
 
           <div className="flex items-center gap-2">
             <button className="text-sm text-left border border-gray-200 rounded-md px-3 py-2">
-              Entregar em
+              Deliver to
               <br />
-              <strong className="font-semibold">Rua Exemplo, 123</strong>
+              <strong className="font-semibold">123 Example St</strong>
             </button>
-            <button className="border border-gray-200 rounded-md px-3 py-2">Entrar</button>
-            <button className="border border-gray-200 rounded-md px-3 py-2">Carrinho</button>
+            <button className="border border-gray-200 rounded-md px-3 py-2">Sign in</button>
+            <button className="border border-gray-200 rounded-md px-3 py-2">Cart</button>
           </div>
         </div>
       </header>
