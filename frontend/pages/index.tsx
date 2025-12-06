@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <header className="bg-white border-b sticky top-0 z-20">
-        <div className="max-w-6xl mx-auto flex items-center gap-4 py-3 px-4">
+        <div className="max-w-screen-xl mx-auto flex items-center gap-4 py-3 px-4">
           <div className="brand">
             <a href="#" className="text-amber-600 font-bold text-lg no-underline">FooDelivery</a>
           </div>
