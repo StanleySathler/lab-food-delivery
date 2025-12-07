@@ -127,15 +127,15 @@ const Home: NextPage = () => {
   const promos = [
     {
       id: "1",
-      title: "Free Delivery",
-      description: "On orders over $20",
-      image: "https://via.placeholder.com/400x200?text=Free+Delivery",
+      image: "/promo-veg-food.jpg",
     },
     {
       id: "2",
-      title: "50% Off",
-      description: "First order with code WELCOME",
-      image: "https://via.placeholder.com/400x200?text=50%25+Off",
+      image: "/promo-fast-food.jpg",
+    },
+    {
+      id: "3",
+      image: "/promo-veg-food.jpg",
     },
   ];
 
@@ -181,14 +181,14 @@ const Home: NextPage = () => {
         {/* Promo Cards Section */}
         <section className="py-6">
           <div className="max-w-screen-xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               {promos.map((promo) => (
                 <div key={promo.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <img src={promo.image} alt={promo.title} className="w-full h-32 object-cover" />
-                  <div className="p-4">
+                  {/* <div className="p-4">
                     <h3 className="font-semibold text-lg">{promo.title}</h3>
                     <p className="text-gray-600">{promo.description}</p>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
