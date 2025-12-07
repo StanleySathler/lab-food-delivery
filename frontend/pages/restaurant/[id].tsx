@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Cart, { CartItem } from "../../components/Cart";
 
 const RestaurantDetails: NextPage = () => {
   const router = useRouter();
@@ -138,6 +139,28 @@ const RestaurantDetails: NextPage = () => {
     },
   ];
 
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartVisible, setCartVisible] = useState(false);
+
+  const addToCart = (product: any) => {
+    const existing = cartItems.find(item => item.id === product.id);
+    if (existing) {
+      setCartItems(cartItems.map(item => item.id === product.id ? {...item, quantity: item.quantity + 1} : item));
+    } else {
+      setCartItems([...cartItems, { id: product.id, name: product.name, price: product.price, quantity: 1 }]);
+    }
+    setCartVisible(true);
+  };
+
+  const updateQuantity = (id: string, quantity: number) => {
+    if (quantity <= 0) return;
+    setCartItems(cartItems.map(item => item.id === id ? {...item, quantity} : item));
+  };
+
+  const removeItem = (id: string) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
   if (!restaurant) {
     return <div>Restaurant not found</div>;
   }
@@ -195,7 +218,7 @@ const RestaurantDetails: NextPage = () => {
                 <p className="text-gray-600 text-sm mb-2">{product.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-lg">${product.price}</span>
-                  <button className="bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-600 transition-colors">
+                  <button className="bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-600 transition-colors" onClick={() => addToCart(product)}>
                     Add to Cart
                   </button>
                 </div>
@@ -204,6 +227,8 @@ const RestaurantDetails: NextPage = () => {
           ))}
         </div>
       </main>
+
+      <Cart cartItems={cartItems} visible={cartVisible} onClose={() => setCartVisible(false)} onUpdateQuantity={updateQuantity} onRemoveItem={removeItem} />
     </div>
   );
 };
