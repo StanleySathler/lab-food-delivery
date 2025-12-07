@@ -7,8 +7,8 @@
     "build": "tsc",
     "start": "node .",
     "start:local": "dotenv -e env/development.env -- nodemon",
-    "test:unit:watch": "jest --watch --coverage=false",
-    "test:unit": "jest"
+    "test:unit:watch": "vitest --watch --coverage=false",
+    "test:unit": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -20,13 +20,11 @@
   },
   "devDependencies": {
     "@swc/core": "^1.15.3",
-    "@swc/jest": "^0.2.39",
-    "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
-    "jest": "^30.2.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.7.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
   }
 }
