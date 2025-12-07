@@ -182,25 +182,27 @@ const Home: NextPage = () => {
               {restaurants.map((restaurant) => (
                 <div key={restaurant.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
                   <div className="p-4">
-                    <div className="flex items-center mb-2">
+                    <div className="flex items-start gap-3">
                       {restaurant.logo && (
                         <img
                           src={restaurant.logo}
                           alt={`${restaurant.name} logo`}
-                          className="w-8 h-8 rounded-full mr-3 object-contain bg-white border border-gray-200"
+                          className="w-12 h-12 rounded-full object-contain bg-white border border-gray-200 flex-shrink-0"
                         />
                       )}
-                      <h3 className="font-semibold text-lg">{restaurant.name}</h3>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-1">{restaurant.name}</h3>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">{restaurant.category}</span>
+                          <span className="flex items-center">
+                            <span className="text-yellow-500 mr-1">★</span>
+                            {restaurant.rating}
+                          </span>
+                          <span className="text-gray-500">{restaurant.deliveryTime}</span>
+                          <span className="text-gray-500">{restaurant.priceRange}</span>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-gray-600 text-sm mb-2">{restaurant.category}</p>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="flex items-center">
-                        <span className="text-yellow-500 mr-1">★</span>
-                        {restaurant.rating}
-                      </span>
-                      <span className="text-gray-500">{restaurant.deliveryTime}</span>
-                    </div>
-                    <div className="mt-2 text-sm text-gray-500">{restaurant.priceRange}</div>
                   </div>
                 </div>
               ))}
