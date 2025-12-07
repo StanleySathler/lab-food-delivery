@@ -24,5 +24,27 @@ describe('RestaurantDetails', () => {
       const title = await screen.findByRole('heading', { level: 1 });
       await expect(within(title).findByText('Pizza Hut')).resolves.toBeTruthy();
     });
+
+    it('should render the restaurant rate', async () => {
+      const screen = render(<RestaurantDetails />);
+      await expect(screen.findByText('4.5')).resolves.toBeTruthy();
+    });
+  });
+
+  describe('Menu', () => {
+    it('should render 6 cards', async () => {
+      const screen = render(<RestaurantDetails />);
+      await expect(screen.findAllByRole('article')).resolves.toHaveLength(6);
+    });
+
+    it('should render the product name', async () => {
+      const screen = render(<RestaurantDetails />);
+      await expect(screen.findAllByText('Margherita Pizza')).resolves.toBeTruthy();
+    });
+
+    it('should render the product price', async () => {
+      const screen = render(<RestaurantDetails />);
+      await expect(screen.findAllByText('$12.99')).resolves.toBeTruthy();
+    });
   });
 });

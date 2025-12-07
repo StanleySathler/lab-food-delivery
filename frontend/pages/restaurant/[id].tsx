@@ -182,6 +182,7 @@ const RestaurantDetails: NextPage = () => {
           {products.map((product) => (
             <div
               key={product.id}
+              role="article"
               className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"
             >
               <img
