@@ -9,9 +9,10 @@ Use this document if:
 When writing tests:
 
 - Use Vitest, not Jest;
-- Import 'describe', 'it', 'expect', etc, from 'vitest' package;
-- Don't use '.toBeInTheDocument'. Favor 'expect(await screen.findAllBy*()).toBeTruthy()';
-- Prioritize 'findBy*' queries over others when writing for React Testing Library, as any UI might be rendered asynchronously;
+- Use `beforeEach(cleanup)` from React Testing Library for every test file;
+- Import `describe`, `it`, `expect`, etc, from 'vitest' package;
+- Don't use `.toBeInTheDocument`. Favor `expect(await screen.findAllBy*()).toBeTruthy()`;
+- Prioritize `findBy*` queries over others when writing for React Testing Library, as any UI might be rendered asynchronously;
 
 Rules specific for AI Coding assistants:
 

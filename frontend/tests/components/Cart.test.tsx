@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import Cart from '../../components/Cart';
 import { CartItem } from '../../components/Cart';
@@ -54,5 +54,12 @@ describe('Cart', () => {
   it('should render the total (cart items + shipping)', async () => {
     render(<Cart {...mockProps} />);
     expect(await screen.findByText('$40.96')).toBeTruthy();
+  });
+
+  it('should update price when increasing quantity', async () => {
+    render(<Cart {...mockProps} />);
+    const increaseButtons = await screen.findAllByText('+');
+    fireEvent.click(increaseButtons[0]); // Click the first + button
+    expect(await screen.findByText('$25.98')).toBeTruthy(); // 12.99 * 2
   });
 });
