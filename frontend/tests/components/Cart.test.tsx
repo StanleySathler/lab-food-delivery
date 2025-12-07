@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import Cart from '../../components/Cart';
 import { CartItem } from '../../components/Cart';
 
@@ -19,14 +19,30 @@ const mockCartItems: CartItem[] = [
 ];
 
 const mockProps = {
-  cartItems: mockCartItems,
   visible: true,
   onClose: vi.fn(),
-  onUpdateQuantity: vi.fn(),
-  onRemoveItem: vi.fn(),
 };
 
-afterEach(cleanup);
+// Mock localStorage
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
+};
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+});
+
+beforeEach(() => {
+  localStorageMock.getItem.mockReturnValue(JSON.stringify(mockCartItems));
+  localStorageMock.setItem.mockImplementation(() => {});
+});
+
+afterEach(() => {
+  cleanup();
+  vi.clearAllMocks();
+});
 
 describe('Cart', () => {
   it('should render all items', async () => {
@@ -60,6 +76,6 @@ describe('Cart', () => {
     render(<Cart {...mockProps} />);
     const increaseButtons = await screen.findAllByText('+');
     fireEvent.click(increaseButtons[0]); // Click the first + button
-    expect(await screen.findByText('$25.98')).toBeTruthy(); // 12.99 * 2
+    expect(await screen.findByText('$38.97')).toBeTruthy(); // 12.99 * 3
   });
 });
