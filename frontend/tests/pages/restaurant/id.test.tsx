@@ -29,6 +29,11 @@ describe('RestaurantDetails', () => {
       const screen = render(<RestaurantDetails />);
       await expect(screen.findByText('4.5')).resolves.toBeTruthy();
     });
+
+    it('should render back button', async () => {
+      const screen = render(<RestaurantDetails />);
+      await expect(screen.findAllByRole('button', { name: '← Back' })).resolves.toBeTruthy();
+    });
   });
 
   describe('Menu', () => {
