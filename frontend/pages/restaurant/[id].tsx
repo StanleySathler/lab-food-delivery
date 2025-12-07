@@ -175,7 +175,7 @@ const RestaurantDetails: NextPage = () => {
               onClick={() => router.back()}
               className="border border-gray-200 rounded-md px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
             >
-              ← Back
+              ←
             </button>
             <img
               src={restaurant.logo}
