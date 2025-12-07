@@ -6,7 +6,7 @@
 
 ```bash
 npm ci
-npm run start:dev
+npm run start:local
 ```
 
 ### Running the tests

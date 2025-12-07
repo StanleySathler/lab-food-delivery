@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { buildServer } from '../../server';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 let app: FastifyInstance;
 
