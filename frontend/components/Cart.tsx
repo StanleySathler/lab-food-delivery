@@ -20,7 +20,7 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuanti
   const shipping = 5.99;
   const total = subtotal + shipping;
   return (
-    <div className={`fixed top-0 right-0 h-full w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
+    <div className={`fixed top-0 right-0 h-full w-full md:w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
       <div className="p-12">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-semibold">Cart</h2>
