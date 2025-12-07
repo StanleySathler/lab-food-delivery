@@ -148,7 +148,7 @@ const Home: NextPage = () => {
             <a href="#" className="text-amber-600 font-bold text-lg no-underline">FooDelivery</a>
           </div>
 
-          <div className="flex-1">
+          <div className="flex-1 hidden sm:block">
             <input className="w-full px-3 py-2 rounded-md border border-gray-200" placeholder="Search for restaurants or items" />
           </div>
 
@@ -156,7 +156,7 @@ const Home: NextPage = () => {
             <button className="text-left border border-gray-200 rounded-md px-4 py-2 min-w-[180px]">
               📍 123 Example St
             </button>
-            <button className="border border-gray-200 rounded-md px-3 py-2">🛒</button>
+            <button className="border border-gray-200 rounded-md px-3 py-2 hidden sm:block">🛒</button>
           </div>
         </div>
       </header>
