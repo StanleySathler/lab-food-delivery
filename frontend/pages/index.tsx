@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Cart, { CartItem } from "../components/Cart";
+import { useCart } from "../hooks/useCart";
 
 // on prod, URL should be `api.lab-food-delivery.store`
 const fetchProducts = async () => {
@@ -17,6 +19,7 @@ const fetchProducts = async () => {
 
 const Home: NextPage = () => {
   const [products, setProducts] = useState<{ id: string; name: string }[]>([]);
+  const { cartRef, cartVisible, setCartVisible } = useCart();
 
   const loadProducts = async () => {
     const products = await fetchProducts();
@@ -156,7 +159,7 @@ const Home: NextPage = () => {
             <button className="text-left border border-gray-200 rounded-md px-4 py-2 min-w-[180px]">
               📍 123 Example St
             </button>
-            <button className="border border-gray-200 rounded-md px-3 py-2 hidden sm:block">🛒</button>
+            <button className="border border-gray-200 rounded-md px-3 py-2 hidden sm:block" onClick={() => setCartVisible(true)}>🛒</button>
           </div>
         </div>
       </header>
@@ -250,6 +253,8 @@ const Home: NextPage = () => {
           </div>
         </section>
       </main>
+
+      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} />
     </div>
   );
 };

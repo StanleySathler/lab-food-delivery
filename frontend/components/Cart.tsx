@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 
 export interface CartItem {
   id: string;
@@ -8,17 +8,52 @@ export interface CartItem {
 }
 
 interface CartProps {
-  cartItems: CartItem[];
   visible: boolean;
   onClose: () => void;
-  onUpdateQuantity: (id: string, quantity: number) => void;
-  onRemoveItem: (id: string) => void;
 }
 
-const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuantity, onRemoveItem }) => {
+export interface CartRef {
+  addItem: (product: any) => void;
+  updateQuantity: (id: string, quantity: number) => void;
+  removeItem: (id: string) => void;
+  getItems: () => CartItem[];
+}
+
+const Cart = forwardRef<CartRef, CartProps>(({ visible, onClose }, ref) => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 5.99;
   const total = subtotal + shipping;
+
+  const addItem = (product: any) => {
+    setCartItems(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
+        return prev.map(item => item.id === product.id ? {...item, quantity: item.quantity + 1} : item);
+      } else {
+        return [...prev, { id: product.id, name: product.name, price: product.price, quantity: 1 }];
+      }
+    });
+  };
+
+  const updateQuantity = (id: string, quantity: number) => {
+    if (quantity <= 0) return;
+    setCartItems(prev => prev.map(item => item.id === id ? {...item, quantity} : item));
+  };
+
+  const removeItem = (id: string) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  const getItems = () => cartItems;
+
+  useImperativeHandle(ref, () => ({
+    addItem,
+    updateQuantity,
+    removeItem,
+    getItems,
+  }));
   return (
     <div className={`fixed top-0 right-0 h-full w-full md:w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
       <div className="p-12">
@@ -35,14 +70,14 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuanti
                 <div className="font-medium">{item.name}</div>
                 <div className="flex items-center mt-2">
                   <button
-                    onClick={() => onRemoveItem(item.id)}
-                    className="text-red-500 hover:text-red-700 mr-4"
+                    onClick={() => removeItem(item.id)}
+                    className="text-red-500 hover:text-red-700 ml-2"
                   >
                     🗑️
                   </button>
                   <div className="flex items-center">
                     <button
-                      onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                       className="px-2 py-1 bg-gray-200 text-gray-700 rounded-l disabled:opacity-50"
                     >
@@ -50,7 +85,7 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuanti
                     </button>
                     <span className="px-3 py-1 bg-gray-100">{item.quantity}</span>
                     <button
-                      onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r"
                     >
                       +
@@ -90,6 +125,8 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuanti
       </div>
     </div>
   );
-};
+});
+
+Cart.displayName = 'Cart';
 
 export default Cart;
