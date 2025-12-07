@@ -154,7 +154,7 @@ const Home: NextPage = () => {
 
           <div className="flex items-center gap-2">
             <button className="text-left border border-gray-200 rounded-md px-4 py-2 min-w-[180px]">
-              Address: 123 Example St
+              📍 123 Example St
             </button>
             <button className="border border-gray-200 rounded-md px-3 py-2">🛒</button>
           </div>
