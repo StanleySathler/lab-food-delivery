@@ -148,15 +148,15 @@ const Home: NextPage = () => {
             <a href="#" className="text-amber-600 font-bold text-lg no-underline">FooDelivery</a>
           </div>
 
-          <div className="flex-1">
+          <div className="flex-1 hidden sm:block">
             <input className="w-full px-3 py-2 rounded-md border border-gray-200" placeholder="Search for restaurants or items" />
           </div>
 
           <div className="flex items-center gap-2">
             <button className="text-left border border-gray-200 rounded-md px-4 py-2 min-w-[180px]">
-              Address: 123 Example St
+              📍 123 Example St
             </button>
-            <button className="border border-gray-200 rounded-md px-3 py-2">Cart</button>
+            <button className="border border-gray-200 rounded-md px-3 py-2 hidden sm:block">🛒</button>
           </div>
         </div>
       </header>
@@ -181,15 +181,11 @@ const Home: NextPage = () => {
 
         {/* Promo Cards Section */}
         <section className="py-6">
-          <div className="max-w-screen-xl mx-auto px-4">
-            <div className="grid grid-cols-3 gap-4">
+          <div className="max-w-screen-xl mx-auto pl-4">
+            <div className="flex flex-row overflow-x-auto md:overflow-x-hidden gap-4 scroll-snap-x-mandatory md:scroll-snap-x-none">
               {promos.map((promo) => (
-                <div key={promo.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div key={promo.id} className="bg-white rounded-lg shadow-md overflow-hidden w-full md:w-1/3 flex-shrink-0 scroll-snap-align-start">
                   <img src={promo.image} alt="Promo" className="w-full h-32 object-cover" />
-                  {/* <div className="p-4">
-                    <h3 className="font-semibold text-lg">{promo.title}</h3>
-                    <p className="text-gray-600">{promo.description}</p>
-                  </div> */}
                 </div>
               ))}
             </div>

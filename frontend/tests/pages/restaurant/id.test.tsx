@@ -32,7 +32,7 @@ describe('RestaurantDetails', () => {
 
     it('should render back button', async () => {
       const screen = render(<RestaurantDetails />);
-      await expect(screen.findAllByRole('button', { name: '← Back' })).resolves.toBeTruthy();
+      await expect(screen.findAllByRole('button', { name: '←' })).resolves.toBeTruthy();
     });
   });
 
