@@ -32,6 +32,7 @@ const Home: NextPage = () => {
       id: "1",
       name: "Pizza Hut",
       image: "https://via.placeholder.com/300x200?text=Pizza+Hut",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/1/17/Pizza_Hut_international_logo_2014.svg",
       rating: 4.5,
       deliveryTime: "30-40 min",
       category: "Pizza",
@@ -41,6 +42,7 @@ const Home: NextPage = () => {
       id: "2",
       name: "McDonald's",
       image: "https://via.placeholder.com/300x200?text=McDonald%27s",
+      logo: "https://www.citypng.com/public/uploads/preview/hd-mcdonalds-red-round-circular-circle-logo-icon-png-image-7017516947898359qtpcakiqi.png",
       rating: 4.2,
       deliveryTime: "20-30 min",
       category: "Fast Food",
@@ -50,6 +52,7 @@ const Home: NextPage = () => {
       id: "3",
       name: "Sushi Express",
       image: "https://via.placeholder.com/300x200?text=Sushi+Express",
+      logo: "https://cdn.brandfetch.io/idOiAQjlV_/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1761698980188",
       rating: 4.7,
       deliveryTime: "25-35 min",
       category: "Japanese",
@@ -59,28 +62,11 @@ const Home: NextPage = () => {
       id: "4",
       name: "Burger King",
       image: "https://via.placeholder.com/300x200?text=Burger+King",
+      logo: "https://banner2.cleanpng.com/20180618/sea/kisspng-hamburger-whopper-burger-king-south-africa-restaur-burger-king-logo-5b2794cb501678.2286330115293206513281.jpg",
       rating: 4.3,
       deliveryTime: "15-25 min",
       category: "Burgers",
       priceRange: "$",
-    },
-    {
-      id: "5",
-      name: "Taco Bell",
-      image: "https://via.placeholder.com/300x200?text=Taco+Bell",
-      rating: 4.1,
-      deliveryTime: "20-30 min",
-      category: "Mexican",
-      priceRange: "$",
-    },
-    {
-      id: "6",
-      name: "Starbucks",
-      image: "https://via.placeholder.com/300x200?text=Starbucks",
-      rating: 4.4,
-      deliveryTime: "10-20 min",
-      category: "Coffee",
-      priceRange: "$$",
     },
   ];
 
@@ -195,9 +181,17 @@ const Home: NextPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {restaurants.map((restaurant) => (
                 <div key={restaurant.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
-                  <img src={restaurant.image} alt={restaurant.name} className="w-full h-48 object-cover" />
                   <div className="p-4">
-                    <h3 className="font-semibold text-lg mb-1">{restaurant.name}</h3>
+                    <div className="flex items-center mb-2">
+                      {restaurant.logo && (
+                        <img
+                          src={restaurant.logo}
+                          alt={`${restaurant.name} logo`}
+                          className="w-8 h-8 rounded-full mr-3 object-contain bg-white border border-gray-200"
+                        />
+                      )}
+                      <h3 className="font-semibold text-lg">{restaurant.name}</h3>
+                    </div>
                     <p className="text-gray-600 text-sm mb-2">{restaurant.category}</p>
                     <div className="flex items-center justify-between text-sm">
                       <span className="flex items-center">
@@ -212,15 +206,6 @@ const Home: NextPage = () => {
               ))}
             </div>
           </div>
-        </section>
-
-        <section className="max-w-6xl mx-auto mt-8 px-4">
-          <h2 className="text-2xl font-semibold mb-4">Products</h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {products.map((product) => (
-              <li key={product.id} className="bg-gray-50 p-3 rounded-lg border border-gray-100">{product.name}</li>
-            ))}
-          </ul>
         </section>
       </main>
     </div>
