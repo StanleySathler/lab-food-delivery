@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 // on prod, URL should be `api.lab-food-delivery.store`
 const fetchProducts = async () => {
@@ -184,7 +185,7 @@ const Home: NextPage = () => {
             <div className="grid grid-cols-3 gap-4">
               {promos.map((promo) => (
                 <div key={promo.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <img src={promo.image} alt={promo.title} className="w-full h-32 object-cover" />
+                  <img src={promo.image} alt="Promo" className="w-full h-32 object-cover" />
                   {/* <div className="p-4">
                     <h3 className="font-semibold text-lg">{promo.title}</h3>
                     <p className="text-gray-600">{promo.description}</p>
@@ -221,31 +222,33 @@ const Home: NextPage = () => {
             <h2 className="text-2xl font-semibold mb-4">Restaurants</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {restaurants.map((restaurant) => (
-                <div key={restaurant.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
-                  <div className="p-4">
-                    <div className="flex items-start gap-3">
-                      {restaurant.logo && (
-                        <img
-                          src={restaurant.logo}
-                          alt={`${restaurant.name} logo`}
-                          className="w-12 h-12 rounded-full object-contain bg-white border border-gray-200 flex-shrink-0"
-                        />
-                      )}
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-lg mb-1">{restaurant.name}</h3>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600">{restaurant.category}</span>
-                          <span className="flex items-center">
-                            <span className="text-yellow-500 mr-1">★</span>
-                            {restaurant.rating}
-                          </span>
-                          <span className="text-gray-500">{restaurant.deliveryTime}</span>
-                          <span className="text-gray-500">{restaurant.priceRange}</span>
+                <Link key={restaurant.id} href={`/restaurant/${restaurant.id}`}>
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="p-4">
+                      <div className="flex items-start gap-3">
+                        {restaurant.logo && (
+                          <img
+                            src={restaurant.logo}
+                            alt={`${restaurant.name} logo`}
+                            className="w-12 h-12 rounded-full object-contain bg-white border border-gray-200 flex-shrink-0"
+                          />
+                        )}
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg mb-1">{restaurant.name}</h3>
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-gray-600">{restaurant.category}</span>
+                            <span className="flex items-center">
+                              <span className="text-yellow-500 mr-1">★</span>
+                              {restaurant.rating}
+                            </span>
+                            <span className="text-gray-500">{restaurant.deliveryTime}</span>
+                            <span className="text-gray-500">{restaurant.priceRange}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
