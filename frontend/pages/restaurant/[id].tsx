@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Cart, { CartItem } from "../../components/Cart";
+import { useCart } from "../../hooks/useCart";
 
 const RestaurantDetails: NextPage = () => {
   const router = useRouter();
@@ -139,27 +140,7 @@ const RestaurantDetails: NextPage = () => {
     },
   ];
 
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [cartVisible, setCartVisible] = useState(false);
-
-  const addToCart = (product: any) => {
-    const existing = cartItems.find(item => item.id === product.id);
-    if (existing) {
-      setCartItems(cartItems.map(item => item.id === product.id ? {...item, quantity: item.quantity + 1} : item));
-    } else {
-      setCartItems([...cartItems, { id: product.id, name: product.name, price: product.price, quantity: 1 }]);
-    }
-    setCartVisible(true);
-  };
-
-  const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) return;
-    setCartItems(cartItems.map(item => item.id === id ? {...item, quantity} : item));
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
+  const { cartRef, cartVisible, setCartVisible, addToCart } = useCart();
 
   if (!restaurant) {
     return <div>Restaurant not found</div>;
@@ -228,7 +209,7 @@ const RestaurantDetails: NextPage = () => {
         </div>
       </main>
 
-      <Cart cartItems={cartItems} visible={cartVisible} onClose={() => setCartVisible(false)} onUpdateQuantity={updateQuantity} onRemoveItem={removeItem} />
+      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} />
     </div>
   );
 };
