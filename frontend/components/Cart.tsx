@@ -80,6 +80,11 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuanti
                 <span>${total.toFixed(2)}</span>
               </div>
             </div>
+            <div className="mt-6">
+              <button className="w-full bg-amber-500 text-white py-3 rounded-md hover:bg-amber-600 transition-colors font-medium">
+                Continue
+              </button>
+            </div>
           </div>
         )}
       </div>
