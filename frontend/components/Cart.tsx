@@ -15,7 +15,7 @@ interface CartProps {
 
 const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose }) => {
   return (
-    <div className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
+    <div className={`fixed top-0 right-0 h-full w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
       <div className="p-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Cart</h2>
@@ -31,6 +31,10 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose }) => {
                 <span>${(item.price * item.quantity).toFixed(2)}</span>
               </div>
             ))}
+            <div className="border-t pt-2 mt-4">
+              <h3 className="font-semibold mb-2">Coupons</h3>
+              <p className="text-sm text-gray-600">No coupons available</p>
+            </div>
             <div className="border-t pt-2 mt-4">
               <div className="flex justify-between font-semibold">
                 <span>Total:</span>
