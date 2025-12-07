@@ -145,7 +145,7 @@ const RestaurantDetails: NextPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Restaurant Header */}
-      <header className="bg-white shadow-sm">
+      <header role="banner" className="bg-white shadow-sm">
         <div className="max-w-screen-xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
             <button
