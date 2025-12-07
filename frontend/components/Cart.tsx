@@ -11,9 +11,11 @@ interface CartProps {
   cartItems: CartItem[];
   visible: boolean;
   onClose: () => void;
+  onUpdateQuantity: (id: string, quantity: number) => void;
+  onRemoveItem: (id: string) => void;
 }
 
-const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose }) => {
+const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuantity, onRemoveItem }) => {
   return (
     <div className={`fixed top-0 right-0 h-full w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
       <div className="p-4">
@@ -26,9 +28,33 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose }) => {
         ) : (
           <div>
             {cartItems.map(item => (
-              <div key={item.id} className="flex justify-between mb-2">
-                <span>{item.name} x{item.quantity}</span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+              <div key={item.id} className="mb-4">
+                <div className="font-medium">{item.name}</div>
+                <div className="flex items-center mt-2">
+                  <button
+                    onClick={() => onRemoveItem(item.id)}
+                    className="text-red-500 hover:text-red-700 mr-4"
+                  >
+                    🗑️
+                  </button>
+                  <div className="flex items-center">
+                    <button
+                      onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
+                      className="px-2 py-1 bg-gray-200 text-gray-700 rounded-l disabled:opacity-50"
+                    >
+                      -
+                    </button>
+                    <span className="px-3 py-1 bg-gray-100">{item.quantity}</span>
+                    <button
+                      onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                      className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span className="font-medium ml-auto">${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
               </div>
             ))}
             <div className="border-t pt-2 mt-4">

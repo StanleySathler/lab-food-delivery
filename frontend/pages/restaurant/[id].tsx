@@ -152,6 +152,15 @@ const RestaurantDetails: NextPage = () => {
     setCartVisible(true);
   };
 
+  const updateQuantity = (id: string, quantity: number) => {
+    if (quantity <= 0) return;
+    setCartItems(cartItems.map(item => item.id === id ? {...item, quantity} : item));
+  };
+
+  const removeItem = (id: string) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
   if (!restaurant) {
     return <div>Restaurant not found</div>;
   }
@@ -219,7 +228,7 @@ const RestaurantDetails: NextPage = () => {
         </div>
       </main>
 
-      <Cart cartItems={cartItems} visible={cartVisible} onClose={() => setCartVisible(false)} />
+      <Cart cartItems={cartItems} visible={cartVisible} onClose={() => setCartVisible(false)} onUpdateQuantity={updateQuantity} onRemoveItem={removeItem} />
     </div>
   );
 };
