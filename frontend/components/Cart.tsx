@@ -16,10 +16,13 @@ interface CartProps {
 }
 
 const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuantity, onRemoveItem }) => {
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const shipping = 5.99;
+  const total = subtotal + shipping;
   return (
     <div className={`fixed top-0 right-0 h-full w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
-      <div className="p-4">
-        <div className="flex justify-between items-center mb-4">
+      <div className="p-12">
+        <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-semibold">Cart</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-2xl">×</button>
         </div>
@@ -28,7 +31,7 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuanti
         ) : (
           <div>
             {cartItems.map(item => (
-              <div key={item.id} className="mb-4">
+              <div key={item.id} className="mb-6">
                 <div className="font-medium">{item.name}</div>
                 <div className="flex items-center mt-2">
                   <button
@@ -57,14 +60,24 @@ const Cart: React.FC<CartProps> = ({ cartItems, visible, onClose, onUpdateQuanti
                 </div>
               </div>
             ))}
-            <div className="border-t pt-2 mt-4">
+            <div className="border-t pt-6 mt-6">
               <h3 className="font-semibold mb-2">Coupons</h3>
               <p className="text-sm text-gray-600">No coupons available</p>
             </div>
-            <div className="border-t pt-2 mt-4">
+            <div className="border-t pt-6 mt-6">
+              <div className="flex justify-between">
+                <span>Subtotal:</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between mt-1">
+                <span>Shipping:</span>
+                <span>${shipping.toFixed(2)}</span>
+              </div>
+            </div>
+            <div className="border-t pt-6 mt-6">
               <div className="flex justify-between font-semibold">
                 <span>Total:</span>
-                <span>${cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</span>
+                <span>${total.toFixed(2)}</span>
               </div>
             </div>
           </div>
