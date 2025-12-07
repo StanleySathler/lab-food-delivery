@@ -186,10 +186,6 @@ const Home: NextPage = () => {
               {promos.map((promo) => (
                 <div key={promo.id} className="bg-white rounded-lg shadow-md overflow-hidden w-full flex-shrink-1 scroll-snap-align-start">
                   <img src={promo.image} alt="Promo" className="w-full h-32 object-cover" />
-                  {/* <div className="p-4">
-                    <h3 className="font-semibold text-lg">{promo.title}</h3>
-                    <p className="text-gray-600">{promo.description}</p>
-                  </div> */}
                 </div>
               ))}
             </div>
