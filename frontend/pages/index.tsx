@@ -182,9 +182,9 @@ const Home: NextPage = () => {
         {/* Promo Cards Section */}
         <section className="py-6">
           <div className="max-w-screen-xl mx-auto px-4">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="flex flex-row overflow-x-auto gap-4 scroll-snap-x-mandatory">
               {promos.map((promo) => (
-                <div key={promo.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div key={promo.id} className="bg-white rounded-lg shadow-md overflow-hidden w-full md:w-1/3 flex-shrink-0 scroll-snap-align-start">
                   <img src={promo.image} alt="Promo" className="w-full h-32 object-cover" />
                   {/* <div className="p-4">
                     <h3 className="font-semibold text-lg">{promo.title}</h3>
