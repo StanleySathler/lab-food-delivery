@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
 
 export interface CartItem {
   id: string;
@@ -21,6 +21,17 @@ export interface CartRef {
 
 const Cart = forwardRef<CartRef, CartProps>(({ visible, onClose }, ref) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('cart-items');
+    if (stored) {
+      setCartItems(JSON.parse(stored));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cart-items', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 5.99;
