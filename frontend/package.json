@@ -11,7 +11,9 @@
     "test:watch": "vitest --watch"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.12",
     "dotenv-cli": "11.0.0",
+    "msw": "^2.12.4",
     "next": "16.0.7",
     "react": "19.2.1",
     "react-dom": "19.2.1"
@@ -27,5 +29,10 @@
     "jsdom": "^27.2.0",
     "typescript": "5.9.3",
     "vitest": "^4.0.15"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
