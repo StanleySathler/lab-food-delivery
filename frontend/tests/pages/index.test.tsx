@@ -15,11 +15,11 @@ type Restaurant = {
 };
 
 describe('Home', () => {
-  let restaurantsData: Restaurant[];
+  let restaurants: Restaurant[];
 
   beforeEach(async () => {
     const res = await fetch('/v1/restaurants');
-    restaurantsData = await res.json();
+    restaurants = await res.json();
   });
 
   afterEach(cleanup);
@@ -27,7 +27,7 @@ describe('Home', () => {
   it('should render a list of restaurants', async () => {
     render(
       <QueryClientProvider client={new QueryClient()}>
-        <Home restaurants={restaurantsData} />
+        <Home restaurants={restaurants} />
       </QueryClientProvider>
     );
 
