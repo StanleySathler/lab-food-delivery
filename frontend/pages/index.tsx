@@ -17,7 +17,7 @@ type Restaurant = {
 };
 
 const fetchRestaurants = async (): Promise<Restaurant[]> => {
-  const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "") + "/v1/restaurants");
+  const res = await fetch("/api/restaurants");
   if (!res.ok) {
     throw new Error("Failed to fetch restaurants");
   }
