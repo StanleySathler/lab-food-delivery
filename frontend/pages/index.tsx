@@ -25,11 +25,13 @@ const fetchRestaurants = async (): Promise<Restaurant[]> => {
 };
 
 const Home: NextPage = () => {
-  const { cartRef, cartVisible, setCartVisible } = useCart();
+  const { cartRef, cartVisible, setCartVisible, getItems } = useCart();
   const { data: restaurants = [], isLoading, error } = useQuery({
     queryKey: ['restaurants'],
     queryFn: fetchRestaurants,
   });
+
+  const cartItemsCount = getItems().length;
 
   // Mocked categories
   const categories = [
@@ -64,7 +66,7 @@ const Home: NextPage = () => {
       <header className="bg-white border-b sticky top-0 z-20">
         <div className="max-w-screen-xl mx-auto flex items-center gap-4 py-3 px-4">
           <div className="brand">
-            <a href="#" className="text-amber-600 font-bold text-lg no-underline">FooDelivery</a>
+            <a href="#" className="text-amber-500 font-bold text-lg no-underline">FooDelivery</a>
           </div>
 
           <div className="flex-1 hidden sm:block">
@@ -171,6 +173,23 @@ const Home: NextPage = () => {
           </div>
         </section>
       </main>
+
+      {/* Floating Cart Button for Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 sm:hidden z-10">
+        <button
+          onClick={() => setCartVisible(true)}
+          className="w-full bg-amber-500 text-white p-4 shadow-lg hover:bg-amber-600 transition-colors relative flex items-center justify-center gap-2"
+          aria-label="Open cart"
+        >
+          <span>🛒</span>
+          <span>Cart</span>
+          {cartItemsCount > 0 && (
+            <span className="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+              {cartItemsCount}
+            </span>
+          )}
+        </button>
+      </div>
 
       <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} />
     </div>
