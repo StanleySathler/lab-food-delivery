@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Cart, { CartItem } from "../components/Cart";
 import { useCart } from "../hooks/useCart";
-import { useQuery } from "@tanstack/react-query";
+import { startMSW } from "../src/mocks/server";
 
 type Restaurant = {
   id: string;
@@ -24,12 +24,8 @@ const fetchRestaurants = async (): Promise<Restaurant[]> => {
   return res.json();
 };
 
-const Home: NextPage = () => {
+const Home: NextPage<{ restaurants: Restaurant[] }> = ({ restaurants }) => {
   const { cartRef, cartVisible, setCartVisible } = useCart();
-  const { data: restaurants = [], isLoading, error } = useQuery({
-    queryKey: ['restaurants'],
-    queryFn: fetchRestaurants,
-  });
 
   // Mocked categories
   const categories = [
@@ -135,8 +131,6 @@ const Home: NextPage = () => {
         <section className="py-6">
           <div className="max-w-screen-xl mx-auto px-4">
             <h2 className="text-2xl font-semibold mb-4">Restaurants</h2>
-            {isLoading && <p>Loading restaurants...</p>}
-            {error && <p>Error loading restaurants: {error.message}</p>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {restaurants.map((restaurant) => (
                 <Link key={restaurant.id} href={`/restaurant/${restaurant.id}`}>
@@ -176,5 +170,17 @@ const Home: NextPage = () => {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  startMSW();
+
+  const restaurants = await fetchRestaurants();
+
+  return {
+    props: {
+      restaurants,
+    },
+  };
+}
 
 export default Home;
