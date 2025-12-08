@@ -3,6 +3,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Cart, { CartItem } from "../components/Cart";
 import { useCart } from "../hooks/useCart";
+import { useQuery } from "@tanstack/react-query";
+
+type Restaurant = {
+  id: string;
+  name: string;
+  image: string;
+  logo: string;
+  rating: number;
+  deliveryTime: string;
+  category: string;
+  priceRange: string;
+};
 
 // on prod, URL should be `api.lab-food-delivery.store`
 const fetchProducts = async () => {
@@ -17,9 +29,21 @@ const fetchProducts = async () => {
   }
 };
 
+const fetchRestaurants = async (): Promise<Restaurant[]> => {
+  const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "") + "/v1/restaurants");
+  if (!res.ok) {
+    throw new Error("Failed to fetch restaurants");
+  }
+  return res.json();
+};
+
 const Home: NextPage = () => {
   const [products, setProducts] = useState<{ id: string; name: string }[]>([]);
   const { cartRef, cartVisible, setCartVisible } = useCart();
+  const { data: restaurants = [], isLoading, error } = useQuery({
+    queryKey: ['restaurants'],
+    queryFn: fetchRestaurants,
+  });
 
   const loadProducts = async () => {
     const products = await fetchProducts();
@@ -31,89 +55,89 @@ const Home: NextPage = () => {
   }, []);
 
   // Mocked restaurant data inspired by iFood
-  const restaurants = [
-    {
-      id: "1",
-      name: "Pizza Hut",
-      image: "https://via.placeholder.com/300x200?text=Pizza+Hut",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/1/17/Pizza_Hut_international_logo_2014.svg",
-      rating: 4.5,
-      deliveryTime: "30-40 min",
-      category: "Pizza",
-      priceRange: "$$",
-    },
-    {
-      id: "2",
-      name: "McDonald's",
-      image: "https://via.placeholder.com/300x200?text=McDonald%27s",
-      logo: "https://www.citypng.com/public/uploads/preview/hd-mcdonalds-red-round-circular-circle-logo-icon-png-image-7017516947898359qtpcakiqi.png",
-      rating: 4.2,
-      deliveryTime: "20-30 min",
-      category: "Fast Food",
-      priceRange: "$",
-    },
-    {
-      id: "3",
-      name: "Sushi Express",
-      image: "https://via.placeholder.com/300x200?text=Sushi+Express",
-      logo: "https://cdn.brandfetch.io/idOiAQjlV_/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1761698980188",
-      rating: 4.7,
-      deliveryTime: "25-35 min",
-      category: "Japanese",
-      priceRange: "$$$",
-    },
-    {
-      id: "4",
-      name: "Burger King",
-      image: "https://via.placeholder.com/300x200?text=Burger+King",
-      logo: "https://banner2.cleanpng.com/20180618/sea/kisspng-hamburger-whopper-burger-king-south-africa-restaur-burger-king-logo-5b2794cb501678.2286330115293206513281.jpg",
-      rating: 4.3,
-      deliveryTime: "15-25 min",
-      category: "Burgers",
-      priceRange: "$",
-    },
-    // Shuffled duplicates
-    {
-      id: "5",
-      name: "Burger King",
-      image: "https://via.placeholder.com/300x200?text=Burger+King",
-      logo: "https://banner2.cleanpng.com/20180618/sea/kisspng-hamburger-whopper-burger-king-south-africa-restaur-burger-king-logo-5b2794cb501678.2286330115293206513281.jpg",
-      rating: 4.3,
-      deliveryTime: "15-25 min",
-      category: "Burgers",
-      priceRange: "$",
-    },
-    {
-      id: "6",
-      name: "Sushi Express",
-      image: "https://via.placeholder.com/300x200?text=Sushi+Express",
-      logo: "https://cdn.brandfetch.io/idOiAQjlV_/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1761698980188",
-      rating: 4.7,
-      deliveryTime: "25-35 min",
-      category: "Japanese",
-      priceRange: "$$$",
-    },
-    {
-      id: "7",
-      name: "Pizza Hut",
-      image: "https://via.placeholder.com/300x200?text=Pizza+Hut",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/1/17/Pizza_Hut_international_logo_2014.svg",
-      rating: 4.5,
-      deliveryTime: "30-40 min",
-      category: "Pizza",
-      priceRange: "$$",
-    },
-    {
-      id: "8",
-      name: "McDonald's",
-      image: "https://via.placeholder.com/300x200?text=McDonald%27s",
-      logo: "https://www.citypng.com/public/uploads/preview/hd-mcdonalds-red-round-circular-circle-logo-icon-png-image-7017516947898359qtpcakiqi.png",
-      rating: 4.2,
-      deliveryTime: "20-30 min",
-      category: "Fast Food",
-      priceRange: "$",
-    },
-  ];
+  // const restaurants = [
+  //   {
+  //     id: "1",
+  //     name: "Pizza Hut",
+  //     image: "https://via.placeholder.com/300x200?text=Pizza+Hut",
+  //     logo: "https://upload.wikimedia.org/wikipedia/commons/1/17/Pizza_Hut_international_logo_2014.svg",
+  //     rating: 4.5,
+  //     deliveryTime: "30-40 min",
+  //     category: "Pizza",
+  //     priceRange: "$$",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "McDonald's",
+  //     image: "https://via.placeholder.com/300x200?text=McDonald%27s",
+  //     logo: "https://www.citypng.com/public/uploads/preview/hd-mcdonalds-red-round-circular-circle-logo-icon-png-image-7017516947898359qtpcakiqi.png",
+  //     rating: 4.2,
+  //     deliveryTime: "20-30 min",
+  //     category: "Fast Food",
+  //     priceRange: "$",
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Sushi Express",
+  //     image: "https://via.placeholder.com/300x200?text=Sushi+Express",
+  //     logo: "https://cdn.brandfetch.io/idOiAQjlV_/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1761698980188",
+  //     rating: 4.7,
+  //     deliveryTime: "25-35 min",
+  //     category: "Japanese",
+  //     priceRange: "$$$",
+  //   },
+  //   {
+  //     id: "4",
+  //     name: "Burger King",
+  //     image: "https://via.placeholder.com/300x200?text=Burger+King",
+  //     logo: "https://banner2.cleanpng.com/20180618/sea/kisspng-hamburger-whopper-burger-king-south-africa-restaur-burger-king-logo-5b2794cb501678.2286330115293206513281.jpg",
+  //     rating: 4.3,
+  //     deliveryTime: "15-25 min",
+  //     category: "Burgers",
+  //     priceRange: "$",
+  //   },
+  //   // Shuffled duplicates
+  //   {
+  //     id: "5",
+  //     name: "Burger King",
+  //     image: "https://via.placeholder.com/300x200?text=Burger+King",
+  //     logo: "https://banner2.cleanpng.com/20180618/sea/kisspng-hamburger-whopper-burger-king-south-africa-restaur-burger-king-logo-5b2794cb501678.2286330115293206513281.jpg",
+  //     rating: 4.3,
+  //     deliveryTime: "15-25 min",
+  //     category: "Burgers",
+  //     priceRange: "$",
+  //   },
+  //   {
+  //     id: "6",
+  //     name: "Sushi Express",
+  //     image: "https://via.placeholder.com/300x200?text=Sushi+Express",
+  //     logo: "https://cdn.brandfetch.io/idOiAQjlV_/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1761698980188",
+  //     rating: 4.7,
+  //     deliveryTime: "25-35 min",
+  //     category: "Japanese",
+  //     priceRange: "$$$",
+  //   },
+  //   {
+  //     id: "7",
+  //     name: "Pizza Hut",
+  //     image: "https://via.placeholder.com/300x200?text=Pizza+Hut",
+  //     logo: "https://upload.wikimedia.org/wikipedia/commons/1/17/Pizza_Hut_international_logo_2014.svg",
+  //     rating: 4.5,
+  //     deliveryTime: "30-40 min",
+  //     category: "Pizza",
+  //     priceRange: "$$",
+  //   },
+  //   {
+  //     id: "8",
+  //     name: "McDonald's",
+  //     image: "https://via.placeholder.com/300x200?text=McDonald%27s",
+  //     logo: "https://www.citypng.com/public/uploads/preview/hd-mcdonalds-red-round-circular-circle-logo-icon-png-image-7017516947898359qtpcakiqi.png",
+  //     rating: 4.2,
+  //     deliveryTime: "20-30 min",
+  //     category: "Fast Food",
+  //     priceRange: "$",
+  //   },
+  // ];
 
   // Mocked categories
   const categories = [
@@ -219,6 +243,8 @@ const Home: NextPage = () => {
         <section className="py-6">
           <div className="max-w-screen-xl mx-auto px-4">
             <h2 className="text-2xl font-semibold mb-4">Restaurants</h2>
+            {isLoading && <p>Loading restaurants...</p>}
+            {error && <p>Error loading restaurants: {error.message}</p>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {restaurants.map((restaurant) => (
                 <Link key={restaurant.id} href={`/restaurant/${restaurant.id}`}>
