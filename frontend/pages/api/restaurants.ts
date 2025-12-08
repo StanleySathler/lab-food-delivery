@@ -1,4 +1,5 @@
-import { http, HttpResponse } from "msw";
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 const restaurants = [
   {
@@ -83,8 +84,9 @@ const restaurants = [
   },
 ];
 
-export const handlers = [
-  http.get("/api/restaurants", () => {
-    return HttpResponse.json(restaurants);
-  }),
-];
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  res.status(200).json(restaurants)
+}
