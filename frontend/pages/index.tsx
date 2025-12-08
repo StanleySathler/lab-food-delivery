@@ -140,7 +140,7 @@ const Home: NextPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {restaurants.map((restaurant) => (
                 <Link key={restaurant.id} href={`/restaurant/${restaurant.id}`}>
-                  <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer">
+                  <article className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer">
                     <div className="p-4">
                       <div className="flex items-start gap-3">
                         {restaurant.logo && (
@@ -164,7 +164,7 @@ const Home: NextPage = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </Link>
               ))}
             </div>
