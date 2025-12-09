@@ -56,7 +56,9 @@ const RestaurantDetails: NextPage = () => {
     },
   ];
 
-  const { cartRef, cartVisible, setCartVisible, addToCart } = useCart();
+  const { cartRef, cartVisible, setCartVisible, addToCart, getItems, updateQuantity, removeItem } = useCart();
+
+  const cartItemsCount = getItems().length;
 
   if (!restaurant) {
     return <div>Restaurant not found</div>;
@@ -133,7 +135,24 @@ const RestaurantDetails: NextPage = () => {
         </div>
       </main>
 
-      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} />
+      {/* Floating Cart Button for Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 sm:hidden z-10">
+        <button
+          onClick={() => setCartVisible(true)}
+          className="w-full bg-amber-500 text-white p-4 shadow-lg hover:bg-amber-600 transition-colors relative flex items-center justify-center gap-2"
+          aria-label="Open cart"
+        >
+          <span>🛒</span>
+          <span>Cart</span>
+          {cartItemsCount > 0 && (
+            <span className="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+              {cartItemsCount}
+            </span>
+          )}
+        </button>
+      </div>
+
+      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} cartItems={getItems()} updateQuantity={updateQuantity} removeItem={removeItem} />
     </div>
   );
 };

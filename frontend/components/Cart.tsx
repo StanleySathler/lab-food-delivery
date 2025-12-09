@@ -10,6 +10,9 @@ export interface CartItem {
 interface CartProps {
   visible: boolean;
   onClose: () => void;
+  cartItems: CartItem[];
+  updateQuantity: (id: string, quantity: number) => void;
+  removeItem: (id: string) => void;
 }
 
 export interface CartRef {
