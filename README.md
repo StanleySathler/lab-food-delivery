@@ -1,12 +1,16 @@
 # lab-food-delivery
-A fictional food delivery app, just like [iFood](https://www.ifood.com.br/) or [UberEats](https://www.ubereats.com/br). Built with microservices and microfrontends architectures in mind. Not a real product but a hobby one.
 
-## Roadmap
+A demo app for food delivery, inspired by [iFood](https://www.ifood.com.br/) and [UberEats](https://www.ubereats.com/br/).
 
-First MVP should be simple and easy. It starts as a monolith.
+See it live at: [https://lab-food-delivery.vercel.app/](https://lab-food-delivery.vercel.app/)
 
-Requirements:
+## Stack
 
-1. Users should be able to login with Google account.
-2. Users can see restaurants, products, and add items to cart. But they must login to proceed with checkout.
-3. Users should be able to buy products through a credit card.
+- Next.js 14;
+- TypeScript;
+- Tailwind CSS;
+
+## Automations
+
+- Automated tests run on every PR and every push to 'main';
+- Every push to 'main' is automatically deployed to Vercel;
