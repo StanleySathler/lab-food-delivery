@@ -22,51 +22,17 @@ export interface CartRef {
   getItems: () => CartItem[];
 }
 
-const Cart = forwardRef<CartRef, CartProps>(({ visible, onClose }, ref) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem('cart-items');
-    if (stored) {
-      setCartItems(JSON.parse(stored));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('cart-items', JSON.stringify(cartItems));
-  }, [cartItems]);
+const Cart = forwardRef<CartRef, CartProps>(({ visible, onClose, cartItems, updateQuantity, removeItem }, ref) => {
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 5.99;
   const total = subtotal + shipping;
 
-  const addItem = (product: any) => {
-    setCartItems(prev => {
-      const existing = prev.find(item => item.id === product.id);
-      if (existing) {
-        return prev.map(item => item.id === product.id ? {...item, quantity: item.quantity + 1} : item);
-      } else {
-        return [...prev, { id: product.id, name: product.name, price: product.price, quantity: 1 }];
-      }
-    });
-  };
-
-  const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) return;
-    setCartItems(prev => prev.map(item => item.id === id ? {...item, quantity} : item));
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
-  };
-
-  const getItems = () => cartItems;
-
   useImperativeHandle(ref, () => ({
-    addItem,
+    addItem: () => {}, // Not used anymore
     updateQuantity,
     removeItem,
-    getItems,
+    getItems: () => cartItems,
   }));
   return (
     <>
