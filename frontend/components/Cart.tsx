@@ -10,6 +10,9 @@ export interface CartItem {
 interface CartProps {
   visible: boolean;
   onClose: () => void;
+  cartItems: CartItem[];
+  updateQuantity: (id: string, quantity: number) => void;
+  removeItem: (id: string) => void;
 }
 
 export interface CartRef {
@@ -66,75 +69,83 @@ const Cart = forwardRef<CartRef, CartProps>(({ visible, onClose }, ref) => {
     getItems,
   }));
   return (
-    <div className={`fixed top-0 right-0 h-full w-full md:w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
-      <div className="p-12">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-semibold">Cart</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-2xl">×</button>
-        </div>
-        {cartItems.length === 0 ? (
-          <p>Your cart is empty</p>
-        ) : (
-          <div>
-            {cartItems.map(item => (
-              <div key={item.id} className="mb-6">
-                <div className="font-medium">{item.name}</div>
-                <div className="flex items-center mt-2">
-                  <button
-                    onClick={() => removeItem(item.id)}
-                    className="text-red-500 hover:text-red-700 ml-2"
-                  >
-                    🗑️
-                  </button>
-                  <div className="flex items-center">
+    <>
+      {visible && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40" 
+          onClick={onClose}
+        />
+      )}
+      <div className={`fixed top-0 right-0 h-full w-full md:w-[28rem] bg-white shadow-lg transform transition-transform duration-300 ${visible ? 'translate-x-0' : 'translate-x-full'} z-50`}>
+        <div className="p-12" onClick={(e) => e.stopPropagation()}>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg font-semibold">Cart</h2>
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+          </div>
+          {cartItems.length === 0 ? (
+            <p>Your cart is empty</p>
+          ) : (
+            <div>
+              {cartItems.map(item => (
+                <div key={item.id} className="mb-6">
+                  <div className="font-medium">{item.name}</div>
+                  <div className="flex items-center mt-2">
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      disabled={item.quantity <= 1}
-                      className="px-2 py-1 bg-gray-200 text-gray-700 rounded-l disabled:opacity-50"
+                      onClick={() => removeItem(item.id)}
+                      className="text-red-500 hover:text-red-700 ml-2"
                     >
-                      -
+                      🗑️
                     </button>
-                    <span className="px-3 py-1 bg-gray-100">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r"
-                    >
-                      +
-                    </button>
+                    <div className="flex items-center">
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        disabled={item.quantity <= 1}
+                        className="px-2 py-1 bg-gray-200 text-gray-700 rounded-l disabled:opacity-50"
+                      >
+                        -
+                      </button>
+                      <span className="px-3 py-1 bg-gray-100">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="px-2 py-1 bg-gray-200 text-gray-700 rounded-r"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <span className="font-medium ml-auto">${(item.price * item.quantity).toFixed(2)}</span>
                   </div>
-                  <span className="font-medium ml-auto">${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+              ))}
+              <div className="border-t pt-6 mt-6">
+                <h3 className="font-semibold mb-2">Coupons</h3>
+                <p className="text-sm text-gray-600">No coupons available</p>
+              </div>
+              <div className="border-t pt-6 mt-6">
+                <div className="flex justify-between">
+                  <span>Subtotal:</span>
+                  <span>${subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between mt-1">
+                  <span>Shipping:</span>
+                  <span>${shipping.toFixed(2)}</span>
                 </div>
               </div>
-            ))}
-            <div className="border-t pt-6 mt-6">
-              <h3 className="font-semibold mb-2">Coupons</h3>
-              <p className="text-sm text-gray-600">No coupons available</p>
-            </div>
-            <div className="border-t pt-6 mt-6">
-              <div className="flex justify-between">
-                <span>Subtotal:</span>
-                <span>${subtotal.toFixed(2)}</span>
+              <div className="border-t pt-6 mt-6">
+                <div className="flex justify-between font-semibold">
+                  <span>Total:</span>
+                  <span>${total.toFixed(2)}</span>
+                </div>
               </div>
-              <div className="flex justify-between mt-1">
-                <span>Shipping:</span>
-                <span>${shipping.toFixed(2)}</span>
+              <div className="mt-6">
+                <button className="w-full bg-amber-500 text-white py-3 rounded-md hover:bg-amber-600 transition-colors font-medium">
+                  Continue
+                </button>
               </div>
             </div>
-            <div className="border-t pt-6 mt-6">
-              <div className="flex justify-between font-semibold">
-                <span>Total:</span>
-                <span>${total.toFixed(2)}</span>
-              </div>
-            </div>
-            <div className="mt-6">
-              <button className="w-full bg-amber-500 text-white py-3 rounded-md hover:bg-amber-600 transition-colors font-medium">
-                Continue
-              </button>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 });
 

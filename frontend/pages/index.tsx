@@ -25,7 +25,7 @@ const fetchRestaurants = async (): Promise<Restaurant[]> => {
 };
 
 const Home: NextPage = () => {
-  const { cartRef, cartVisible, setCartVisible, getItems } = useCart();
+  const { cartRef, cartVisible, setCartVisible, getItems, updateQuantity, removeItem } = useCart();
   const { data: restaurants = [], isLoading, error } = useQuery({
     queryKey: ['restaurants'],
     queryFn: fetchRestaurants,
@@ -191,7 +191,7 @@ const Home: NextPage = () => {
         </button>
       </div>
 
-      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} />
+      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} cartItems={getItems()} updateQuantity={updateQuantity} removeItem={removeItem} />
     </div>
   );
 };
