@@ -67,30 +67,38 @@ const RestaurantDetails: NextPage = () => {
       {/* Restaurant Header */}
       <header role="banner" className="bg-white shadow-sm">
         <div className="max-w-screen-xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => router.back()}
-              className="border border-gray-200 rounded-md px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
-            >
-              ←
-            </button>
-            <img
-              src={restaurant.logo}
-              alt={`${restaurant.name} logo`}
-              className="w-12 h-12 rounded-full object-contain"
-            />
-            <div>
-              <h1 className="text-2xl font-semibold">{restaurant.name}</h1>
-              <div className="flex items-center gap-4 text-sm text-gray-600">
-                <span>{restaurant.category}</span>
-                <span className="flex items-center">
-                  <span className="text-yellow-500 mr-1">★</span>
-                  {restaurant.rating}
-                </span>
-                <span>{restaurant.deliveryTime}</span>
-                <span>{restaurant.priceRange}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => router.back()}
+                className="border border-gray-200 rounded-md px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
+              >
+                ←
+              </button>
+              <img
+                src={restaurant.logo}
+                alt={`${restaurant.name} logo`}
+                className="w-12 h-12 rounded-full object-contain"
+              />
+              <div>
+                <h1 className="text-2xl font-semibold">{restaurant.name}</h1>
+                <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <span>{restaurant.category}</span>
+                  <span className="flex items-center">
+                    <span className="text-yellow-500 mr-1">★</span>
+                    {restaurant.rating}
+                  </span>
+                  <span>{restaurant.deliveryTime}</span>
+                  <span>{restaurant.priceRange}</span>
+                </div>
               </div>
             </div>
+            <button 
+              className="border border-gray-200 rounded-md px-3 py-2 hidden sm:block" 
+              onClick={() => setCartVisible(true)}
+            >
+              🛒
+            </button>
           </div>
         </div>
       </header>
