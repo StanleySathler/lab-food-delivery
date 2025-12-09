@@ -1,10 +1,11 @@
-name: "PR: Backend QA"
+name: "Main: Frontend QA"
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
     paths:
-      - "backend/**"
+      - "frontend/**"
 
 jobs:
   test:
@@ -21,11 +22,11 @@ jobs:
       - name: Install npm modules
         shell: bash
         run: |
-          cd backend
+          cd frontend
           npm ci
 
       - name: Run tests
         shell: bash
         run: |
-          cd backend
+          cd frontend
           npm run test:unit
