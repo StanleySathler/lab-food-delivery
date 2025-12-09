@@ -21,27 +21,13 @@ const mockCartItems: CartItem[] = [
 const mockProps = {
   visible: true,
   onClose: vi.fn(),
-};
-
-// Mock localStorage
-const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
+  cartItems: mockCartItems,
+  updateQuantity: vi.fn(),
   removeItem: vi.fn(),
-  clear: vi.fn(),
 };
-Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock,
-});
-
-beforeEach(() => {
-  localStorageMock.getItem.mockReturnValue(JSON.stringify(mockCartItems));
-  localStorageMock.setItem.mockImplementation(() => {});
-});
 
 afterEach(() => {
   cleanup();
-  vi.clearAllMocks();
 });
 
 describe('Cart', () => {
