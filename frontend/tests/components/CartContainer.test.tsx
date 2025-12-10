@@ -1,32 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
-import Cart from '../../components/Cart';
-import { CartItem } from '../../components/Cart';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import TestAppContainer from '../../src/utils/TestAppContainer';
 import CartContainer from '../../components/CartContainer';
-
-// const mockCartItems: CartItem[] = [
-//   {
-//     id: '1',
-//     name: 'Margherita Pizza',
-//     price: 12.99,
-//     quantity: 2,
-//   },
-//   {
-//     id: '2',
-//     name: 'Chicken Wings',
-//     price: 8.99,
-//     quantity: 1,
-//   },
-// ];
-
-// const mockProps = {
-//   visible: true,
-//   onClose: vi.fn(),
-//   cartItems: mockCartItems,
-//   updateQuantity: vi.fn(),
-//   removeItem: vi.fn(),
-// };
 
 const setup = () => {
   return render(<TestAppContainer><CartContainer /></TestAppContainer>);
@@ -36,7 +11,6 @@ afterEach(cleanup);
 
 describe('Cart', () => {
   it('should render all items', async () => {
-    // render(<Cart {...mockProps} />);
     const screen = setup();
     const items = await screen.findAllByText(/Pizza|Wings/);
     expect(items).toHaveLength(2);

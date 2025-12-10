@@ -20,7 +20,6 @@ describe('RestaurantDetails', () => {
   
   describe('Header', () => {
     it('should render the restaurant name', async () => {
-      // const screen = render(<RestaurantDetails />);
       const screen = setup();
       await expect(screen.findByText('Pizza Hut')).resolves.toBeTruthy();
     });
