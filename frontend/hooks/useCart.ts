@@ -1,12 +1,10 @@
 import { useRef, useState, useEffect } from "react";
-import { CartRef } from "../components/Cart";
 import { getSessionId } from "../src/utils/session";
 
 export const useCart = () => {
-  const cartRef = useRef<CartRef>(null);
   const [cartVisible, setCartVisible] = useState(false);
   const [cartItems, setCartItems] = useState<any[]>([]);
-  const [sessionId, setSessionId] = useState<string>('');
+  const [sessionId, setSessionId] = useState<string>("");
 
   useEffect(() => {
     const id = getSessionId();
@@ -18,9 +16,9 @@ export const useCart = () => {
   const fetchCart = async (sid: string) => {
     if (!sid) return;
     try {
-      const response = await fetch('/api/cart', {
+      const response = await fetch("/api/cart", {
         headers: {
-          'x-session-id': sid,
+          "x-session-id": sid,
         },
       });
       if (response.ok) {
@@ -28,21 +26,26 @@ export const useCart = () => {
         setCartItems(data);
       }
     } catch (error) {
-      console.error('Failed to fetch cart:', error);
+      console.error("Failed to fetch cart:", error);
     }
   };
 
   const addToCart = async (product: any) => {
     if (!sessionId) return;
 
-    const newItem = { id: product.id, name: product.name, price: product.price, quantity: 1 };
+    const newItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+    };
 
     try {
-      const response = await fetch('/api/cart', {
-        method: 'POST',
+      const response = await fetch("/api/cart", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'x-session-id': sessionId,
+          "Content-Type": "application/json",
+          "x-session-id": sessionId,
         },
         body: JSON.stringify(newItem),
       });
@@ -53,7 +56,7 @@ export const useCart = () => {
         setCartVisible(true);
       }
     } catch (error) {
-      console.error('Failed to add item to cart:', error);
+      console.error("Failed to add item to cart:", error);
     }
   };
 
@@ -61,11 +64,11 @@ export const useCart = () => {
     if (!sessionId) return;
 
     try {
-      const response = await fetch('/api/cart', {
-        method: 'PUT',
+      const response = await fetch("/api/cart", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'x-session-id': sessionId,
+          "Content-Type": "application/json",
+          "x-session-id": sessionId,
         },
         body: JSON.stringify({ id, quantity }),
       });
@@ -75,7 +78,7 @@ export const useCart = () => {
         setCartItems(updatedCart);
       }
     } catch (error) {
-      console.error('Failed to update cart item:', error);
+      console.error("Failed to update cart item:", error);
     }
   };
 
@@ -83,11 +86,11 @@ export const useCart = () => {
     if (!sessionId) return;
 
     try {
-      const response = await fetch('/api/cart', {
-        method: 'DELETE',
+      const response = await fetch("/api/cart", {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'x-session-id': sessionId,
+          "Content-Type": "application/json",
+          "x-session-id": sessionId,
         },
         body: JSON.stringify({ id }),
       });
@@ -97,14 +100,13 @@ export const useCart = () => {
         setCartItems(updatedCart);
       }
     } catch (error) {
-      console.error('Failed to remove cart item:', error);
+      console.error("Failed to remove cart item:", error);
     }
   };
 
   const getItems = () => cartItems;
 
   return {
-    cartRef,
     cartVisible,
     setCartVisible,
     addToCart,
