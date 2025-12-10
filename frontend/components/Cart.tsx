@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
+import React from 'react';
 
 export interface CartItem {
   id: string;
@@ -15,25 +15,12 @@ interface CartProps {
   removeItem: (id: string) => void;
 }
 
-export interface CartRef {
-  addItem: (product: any) => void;
-  updateQuantity: (id: string, quantity: number) => void;
-  removeItem: (id: string) => void;
-  getItems: () => CartItem[];
-}
-
-const Cart = forwardRef<CartRef, CartProps>(({ visible, onClose, cartItems, updateQuantity, removeItem }, ref) => {
+const Cart = ({ visible, onClose, cartItems, updateQuantity, removeItem }: CartProps) => {
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 5.99;
   const total = subtotal + shipping;
 
-  useImperativeHandle(ref, () => ({
-    addItem: () => {}, // Not used anymore
-    updateQuantity,
-    removeItem,
-    getItems: () => cartItems,
-  }));
   return (
     <>
       {visible && (
@@ -113,7 +100,7 @@ const Cart = forwardRef<CartRef, CartProps>(({ visible, onClose, cartItems, upda
       </div>
     </>
   );
-});
+};
 
 Cart.displayName = 'Cart';
 

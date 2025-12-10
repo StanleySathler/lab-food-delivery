@@ -1,6 +1,8 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { CartProvider } from "../contexts/CartContext";
+import CartContainer from "../components/CartContainer";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <script src="https://cdn.tailwindcss.com"></script>
       </Head>
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <CartProvider>
+          <Component {...pageProps} />
+          <CartContainer />
+        </CartProvider>
       </QueryClientProvider>
     </>
   );

@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import Cart, { CartItem } from "../../components/Cart";
-import { useCart } from "../../hooks/useCart";
+import { useCartContext } from "../../contexts/CartContext";
 import { restaurants } from "../../src/mocks/database";
 
 const RestaurantDetails: NextPage = () => {
@@ -56,7 +55,7 @@ const RestaurantDetails: NextPage = () => {
     },
   ];
 
-  const { cartRef, cartVisible, setCartVisible, addToCart, getItems, updateQuantity, removeItem } = useCart();
+  const { setCartVisible, addToCart, getItems } = useCartContext();
 
   const cartItemsCount = getItems().length;
 
@@ -152,7 +151,6 @@ const RestaurantDetails: NextPage = () => {
         </button>
       </div>
 
-      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} cartItems={getItems()} updateQuantity={updateQuantity} removeItem={removeItem} />
     </div>
   );
 };
