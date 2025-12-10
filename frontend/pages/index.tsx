@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Cart, { CartItem } from "../components/Cart";
-import { useCart } from "../hooks/useCart";
+import { useCartContext } from "../contexts/CartContext";
 import { useQuery } from "@tanstack/react-query";
 
 type Restaurant = {
@@ -25,7 +24,7 @@ const fetchRestaurants = async (): Promise<Restaurant[]> => {
 };
 
 const Home: NextPage = () => {
-  const { cartRef, cartVisible, setCartVisible, getItems, updateQuantity, removeItem } = useCart();
+  const { setCartVisible, getItems } = useCartContext();
   const { data: restaurants = [], isLoading, error } = useQuery({
     queryKey: ['restaurants'],
     queryFn: fetchRestaurants,
@@ -191,7 +190,6 @@ const Home: NextPage = () => {
         </button>
       </div>
 
-      <Cart ref={cartRef} visible={cartVisible} onClose={() => setCartVisible(false)} cartItems={getItems()} updateQuantity={updateQuantity} removeItem={removeItem} />
     </div>
   );
 };
