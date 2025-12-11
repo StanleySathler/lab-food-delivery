@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { useCartContext } from "../src/contexts/CartContext";
+import { useCartContext } from "../contexts/CartContext";
 
 type Restaurant = {
   id: string;

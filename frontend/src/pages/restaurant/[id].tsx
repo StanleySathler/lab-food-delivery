@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { restaurants } from "../../src/mocks/database";
-import { useCartContext } from "../../src/contexts/CartContext";
+import { restaurants } from "../../mocks/database";
+import { useCartContext } from "../../contexts/CartContext";
 
 const RestaurantDetails: NextPage = () => {
   const router = useRouter();

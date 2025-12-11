@@ -1,8 +1,8 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { CartProvider } from "../src/contexts/CartContext";
-import CartContainer from "../src/components/CartContainer";
+import { CartProvider } from "../contexts/CartContext";
+import CartContainer from "../components/CartContainer";
 
 const queryClient = new QueryClient();
 
