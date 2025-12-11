@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { getSessionId } from "../src/utils/session";
-import { CartItem } from "../src/types";
+import { CartItem, Product } from "../src/types";
 
 export const useCart = () => {
   const [cartVisible, setCartVisible] = useState(false);
@@ -31,7 +31,7 @@ export const useCart = () => {
     }
   };
 
-  const addToCart = async (product: CartItem) => {
+  const addToCart = async (product: Product) => {
     if (!sessionId) return;
 
     const newItem = {
