@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { getSessionId } from "../src/utils/session";
-import { CartItem, Product } from "../src/types";
+import { CartItem, Product } from "../types";
+import { getSessionId } from "../utils/session";
 
 export const useCart = () => {
   const [cartVisible, setCartVisible] = useState(false);

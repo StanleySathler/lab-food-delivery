@@ -1,6 +1,6 @@
 import { render, screen, cleanup, within } from '@testing-library/react';
 import { describe, expect, it, vi, afterEach } from 'vitest';
-import RestaurantDetails from '../../../pages/restaurant/[id]';
+import RestaurantDetails from '../../../src/pages/restaurant/[id]';
 import TestAppContainer from '../../../src/utils/TestAppContainer';
 
 // Mock Next.js router

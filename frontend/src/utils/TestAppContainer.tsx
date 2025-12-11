@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { CartProvider } from '../../contexts/CartContext';
+import { CartProvider } from '../contexts/CartContext';
 
 type Props = {
   children?: ReactNode;

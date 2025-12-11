@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import TestAppContainer from '../../src/utils/TestAppContainer';
-import CartContainer from '../../components/CartContainer';
+import CartContainer from '../../src/components/CartContainer';
 
 const setup = () => {
   return render(<TestAppContainer><CartContainer /></TestAppContainer>);
