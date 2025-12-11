@@ -1,11 +1,5 @@
 import React from 'react';
-
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { CartItem } from '../src/types';
 
 interface CartProps {
   visible: boolean;

@@ -1,9 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import { getSessionId } from "../src/utils/session";
+import { CartItem } from "../src/types";
 
 export const useCart = () => {
   const [cartVisible, setCartVisible] = useState(false);
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export const useCart = () => {
     }
   };
 
-  const addToCart = async (product: any) => {
+  const addToCart = async (product: CartItem) => {
     if (!sessionId) return;
 
     const newItem = {

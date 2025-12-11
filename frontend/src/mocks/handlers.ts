@@ -1,8 +1,9 @@
 import { http, HttpResponse, PathParams } from "msw";
 import { restaurants } from "./database";
+import { CartItem } from "../types";
 
 // Simple in-memory cart for tests (no sessions)
-const cart: any[] = [
+const cart: CartItem[] = [
   {
     id: "1",
     name: "Margherita Pizza",
@@ -30,49 +31,43 @@ export const handlers = [
   }),
 
   // POST add item
-  http.post<any, { id: string; quantity: number }>(
-    "/api/cart",
-    async ({ request }) => {
-      const payload = await request.json();
-      const c = getCart();
+  http.post<PathParams, CartItem>("/api/cart", async ({ request }) => {
+    const payload = await request.json();
+    const c = getCart();
 
-      const existing = c.find((i: any) => i.id === payload.id);
-      if (existing) {
-        existing.quantity = (existing.quantity || 0) + (payload.quantity || 1);
-      } else {
-        c.push({ ...payload });
-      }
-
-      return HttpResponse.json(c);
+    const existing = c.find((i) => i.id === payload.id);
+    if (existing) {
+      existing.quantity = (existing.quantity || 0) + (payload.quantity || 1);
+    } else {
+      c.push({ ...payload });
     }
-  ),
+
+    return HttpResponse.json(c);
+  }),
 
   // PUT update quantity
-  http.put<PathParams, { id: string; quantity: number }>(
-    "/api/cart",
-    async ({ request }) => {
-      const { id, quantity } = await request.json();
-      const c = getCart();
+  http.put<PathParams, CartItem>("/api/cart", async ({ request }) => {
+    const { id, quantity } = await request.json();
+    const c = getCart();
 
-      const idx = c.findIndex((i: any) => i.id === id);
-      if (idx !== -1) {
-        if (quantity <= 0) {
-          c.splice(idx, 1);
-        } else {
-          c[idx].quantity = quantity;
-        }
+    const idx = c.findIndex((i) => i.id === id);
+    if (idx !== -1) {
+      if (quantity <= 0) {
+        c.splice(idx, 1);
+      } else {
+        c[idx].quantity = quantity;
       }
-
-      return HttpResponse.json(c);
     }
-  ),
+
+    return HttpResponse.json(c);
+  }),
 
   // DELETE remove item
   http.delete("/api/cart", async (req) => {
     const { id } = await (req as any).json();
     const c = getCart();
 
-    const idx = c.findIndex((i: any) => i.id === id);
+    const idx = c.findIndex((i) => i.id === id);
     if (idx !== -1) c.splice(idx, 1);
 
     return HttpResponse.json(c);
