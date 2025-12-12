@@ -1,7 +1,31 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useState } from "react";
 
 const Checkout: NextPage = () => {
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiry, setExpiry] = useState('');
+
+  const formatCardNumber = (value: string) => {
+    const digits = value.replace(/\D/g, '');
+    return digits.replace(/(\d{4})(?=\d)/g, '$1 ').slice(0, 19);
+  };
+
+  const formatExpiry = (value: string) => {
+    const digits = value.replace(/\D/g, '');
+    if (digits.length >= 2) {
+      return digits.slice(0, 2) + '/' + digits.slice(2, 4);
+    }
+    return digits;
+  };
+
+  const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCardNumber(formatCardNumber(e.target.value));
+  };
+
+  const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setExpiry(formatExpiry(e.target.value));
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b">
@@ -39,6 +63,8 @@ const Checkout: NextPage = () => {
                 type="text"
                 inputMode="numeric"
                 placeholder="1234 5678 9012 3456"
+                value={cardNumber}
+                onChange={handleCardNumberChange}
                 className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-amber-400 focus:ring-amber-200"
               />
             </div>
@@ -53,6 +79,8 @@ const Checkout: NextPage = () => {
                   name="expiry"
                   type="text"
                   placeholder="MM / YY"
+                  value={expiry}
+                  onChange={handleExpiryChange}
                   className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-amber-400 focus:ring-amber-200"
                 />
               </div>
