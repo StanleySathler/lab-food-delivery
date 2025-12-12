@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="description" content="Order delicious food from your favorite restaurants with fast delivery." />
         <meta property="og:title" content="FooDelivery - Food Delivery App" />
         <meta property="og:description" content="Order delicious food from your favorite restaurants with fast delivery." />
-        <meta property="og:image" content="/icon.png" />
+        <meta property="og:image" content="/og-image.png" />
         <meta property="og:url" content="https://lab-food-delivery.vercel.app/" />
         <meta name="twitter:card" content="summary_large_image" />
 
