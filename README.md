@@ -6,7 +6,7 @@ See it live at: [https://lab-food-delivery.vercel.app/](https://lab-food-deliver
 
 ## Stack
 
-- Next.js 14;
+- Next.js 16;
 - TypeScript;
 - Tailwind CSS;
 
