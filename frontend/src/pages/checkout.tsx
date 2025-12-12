@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
-import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Checkout: NextPage = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
+  const router = useRouter();
 
   const formatCardNumber = (value: string) => {
     const digits = value.replace(/\D/g, '');
@@ -28,10 +29,22 @@ const Checkout: NextPage = () => {
   };
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b">
-        <div className="max-w-screen-xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-lg font-semibold">Checkout</h1>
-          <Link href="/" className="text-amber-500 font-medium">Back</Link>
+      {/* Checkout Header */}
+      <header role="banner" className="bg-white shadow-sm">
+        <div className="max-w-screen-xl mx-auto px-4 py-4">
+          <div className="flex items-center">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => router.back()}
+                className="border border-gray-200 rounded-md px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 transition-colors"
+              >
+                ←
+              </button>
+              <div>
+                <h1 className="text-2xl font-semibold">Checkout</h1>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
 
