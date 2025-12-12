@@ -18,29 +18,29 @@ const setup = () => {
 describe('Checkout', () => {
   afterEach(cleanup);
 
-  it('should render cardholder name field', () => {
+  it('should render cardholder name field', async () => {
     setup();
-    expect(screen.findByLabelText('Cardholder name')).resolves.toBeTruthy();
+    expect(await screen.findByLabelText('Cardholder name')).toBeInTheDocument();
   });
 
-  it('should render card number field', () => {
+  it('should render card number field', async () => {
     setup();
-    expect(screen.findByLabelText('Card number')).resolves.toBeTruthy();
+    expect(await screen.findByLabelText('Card number')).toBeInTheDocument();
   });
 
-  it('should render expiration field', () => {
+  it('should render expiration field', async () => {
     setup();
-    expect(screen.findByLabelText('Expiration')).resolves.toBeTruthy();
+    expect(await screen.findByLabelText('Expiration')).toBeInTheDocument();
   });
 
-  it('should render cvc field', () => {
+  it('should render cvc field', async () => {
     setup();
-    expect(screen.findByLabelText('CVC')).resolves.toBeTruthy();
+    expect(await screen.findByLabelText('CVC')).toBeInTheDocument();
   });
 
-  it('should render billing address field', () => {
+  it('should render billing address field', async () => {
     setup();
-    expect(screen.findByLabelText('Billing address (optional)')).resolves.toBeTruthy();
+    expect(await screen.findByLabelText('Billing address (optional)')).toBeInTheDocument();
   });
 
   it('should apply mask to expiration field', async () => {
