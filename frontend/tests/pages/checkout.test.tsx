@@ -1,5 +1,6 @@
 import { render, screen, cleanup } from '@testing-library/react';
 import { describe, expect, it, vi, afterEach } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import TestAppContainer from '../../src/utils/TestAppContainer';
 import Checkout from '../../src/pages/checkout';
 
@@ -40,5 +41,12 @@ describe('Checkout', () => {
   it('should render billing address field', () => {
     setup();
     expect(screen.findByLabelText('Billing address (optional)')).resolves.toBeTruthy();
+  });
+
+  it('should apply mask to expiration field', async () => {
+    setup();
+    const expiryInput = await screen.findByLabelText('Expiration');
+    await userEvent.type(expiryInput, '1230');
+    expect(expiryInput).toHaveValue('12/30');
   });
 });
