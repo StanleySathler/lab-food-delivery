@@ -7,9 +7,10 @@ interface CartProps {
   cartItems: CartItem[];
   updateQuantity: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
+  onContinue?: () => void;
 }
 
-const Cart = ({ visible, onClose, cartItems, updateQuantity, removeItem }: CartProps) => {
+const Cart = ({ visible, onClose, cartItems, updateQuantity, removeItem, onContinue }: CartProps) => {
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 5.99;
@@ -84,7 +85,10 @@ const Cart = ({ visible, onClose, cartItems, updateQuantity, removeItem }: CartP
                 </div>
               </div>
               <div className="mt-6">
-                <button className="w-full bg-amber-500 text-white py-3 rounded-md hover:bg-amber-600 transition-colors font-medium">
+                <button
+                  onClick={() => (onContinue ? onContinue() : onClose())}
+                  className="w-full bg-amber-500 text-white py-3 rounded-md hover:bg-amber-600 transition-colors font-medium"
+                >
                   Continue
                 </button>
               </div>

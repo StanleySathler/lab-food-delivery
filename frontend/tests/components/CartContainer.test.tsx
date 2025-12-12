@@ -3,6 +3,14 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import TestAppContainer from '../../src/utils/TestAppContainer';
 import CartContainer from '../../src/components/CartContainer';
 
+// Mock Next.js router
+vi.mock('next/router', () => ({
+  useRouter: () => ({
+    query: { id: '1' },
+    back: vi.fn(),
+  }),
+}));
+
 const setup = () => {
   return render(<TestAppContainer><CartContainer /></TestAppContainer>);
 }
