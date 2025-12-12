@@ -1,31 +1,19 @@
 import type { NextPage } from "next";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { formatCardNumber, formatCardExpiryDate } from "../utils/masks";
 
 const Checkout: NextPage = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const router = useRouter();
 
-  const formatCardNumber = (value: string) => {
-    const digits = value.replace(/\D/g, '');
-    return digits.replace(/(\d{4})(?=\d)/g, '$1 ').slice(0, 19);
-  };
-
-  const formatExpiry = (value: string) => {
-    const digits = value.replace(/\D/g, '');
-    if (digits.length >= 2) {
-      return digits.slice(0, 2) + '/' + digits.slice(2, 4);
-    }
-    return digits;
-  };
-
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCardNumber(formatCardNumber(e.target.value));
   };
 
   const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setExpiry(formatExpiry(e.target.value));
+    setExpiry(formatCardExpiryDate(e.target.value));
   };
   return (
     <div className="min-h-screen bg-gray-50">
