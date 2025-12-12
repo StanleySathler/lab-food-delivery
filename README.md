@@ -14,3 +14,21 @@ See it live at: [https://lab-food-delivery.vercel.app/](https://lab-food-deliver
 
 - Automated tests run on every PR and every push to 'main';
 - Every push to 'main' is automatically deployed to Vercel;
+
+## Developing locally
+
+Running app:
+
+```bash
+$ cd lab-food-delivery/frontend
+$ npm ci
+$ npm run start:local
+```
+
+Running tests:
+
+```bash
+$ cd lab-food-delivery/frontend
+$ npm ci
+$ npm run test
+```
