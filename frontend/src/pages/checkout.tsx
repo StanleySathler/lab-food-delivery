@@ -20,6 +20,11 @@ const Checkout: NextPage = () => {
   const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCvc(formatCVC(e.target.value));
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push('/status');
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Checkout Header */}
@@ -45,7 +50,7 @@ const Checkout: NextPage = () => {
         <div className="bg-white border rounded-lg shadow-sm p-6">
           <h2 className="text-xl font-semibold mb-4">Payment details</h2>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="cardName" className="block text-sm font-medium text-gray-700">
                 Cardholder name
