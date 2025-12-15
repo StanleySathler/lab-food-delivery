@@ -40,7 +40,7 @@ const Status: NextPage = () => {
       <main className="max-w-screen-md mx-auto px-4 py-16">
         <div className="bg-white border rounded-lg shadow-sm p-6">
           <h2 className="text-xl font-semibold mb-4">Order status</h2>
-          <p className="text-sm text-gray-500">This page will update automatically.</p>
+          <p className="text-sm text-gray-500">This page will update automatically. For demo purposes, wait around 15 seconds to see statuses changing.</p>
 
           <div className="mt-6">
             <ol className="flex flex-col">
@@ -50,7 +50,7 @@ const Status: NextPage = () => {
                 .map(({ label }, idx) => {
                   const isCurrent = idx === currentStep;
                   return (
-                    <li key={label} className="flex items-center">
+                    <li key={label} className="flex items-start">
                       <div className="flex flex-col items-center mr-4">
                         <div
                           className={`w-4 h-4 rounded-full ${isCurrent ? 'bg-amber-500' : 'bg-gray-300'}`}
