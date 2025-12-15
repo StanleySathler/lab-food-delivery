@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { formatCardNumber, formatCardExpiryDate } from "../utils/masks";
+import { formatCardNumber, formatCardExpiryDate, formatCVC } from "../utils/masks";
 
 const Checkout: NextPage = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
+  const [cvc, setCvc] = useState('');
   const router = useRouter();
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,6 +15,10 @@ const Checkout: NextPage = () => {
 
   const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setExpiry(formatCardExpiryDate(e.target.value));
+  };
+
+  const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCvc(formatCVC(e.target.value));
   };
   return (
     <div className="min-h-screen bg-gray-50">
@@ -79,6 +84,7 @@ const Checkout: NextPage = () => {
                   id="expiry"
                   name="expiry"
                   type="text"
+                  inputMode="numeric"
                   placeholder="MM / YY"
                   value={expiry}
                   onChange={handleExpiryChange}
@@ -96,6 +102,9 @@ const Checkout: NextPage = () => {
                   type="text"
                   inputMode="numeric"
                   placeholder="123"
+                  value={cvc}
+                  onChange={handleCvcChange}
+                  maxLength={3}
                   className="mt-1 block w-full rounded-md border-gray-200 shadow-sm focus:border-amber-400 focus:ring-amber-200"
                 />
               </div>
