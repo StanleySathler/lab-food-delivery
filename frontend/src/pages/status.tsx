@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 const Status: NextPage = () => {
-  const [status, setStatus] = useState('Waiting confirmation by the restaurant');
+  const steps = [
+    'Waiting confirmation by the restaurant',
+    'Order confirmed',
+  ];
+  const [currentStep, setCurrentStep] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setStatus('Order confirmed');
+      setCurrentStep(1);
     }, 5000);
     return () => clearTimeout(timer);
   }, []);
@@ -34,9 +38,36 @@ const Status: NextPage = () => {
       </header>
 
       <main className="max-w-screen-md mx-auto px-4 py-16">
-        <div className="bg-white border rounded-lg shadow-sm p-6 text-center">
-          <h2 className="text-xl font-semibold mb-4">{status}</h2>
+        <div className="bg-white border rounded-lg shadow-sm p-6">
+          <h2 className="text-xl font-semibold mb-4">Order status</h2>
           <p className="text-sm text-gray-500">This page will update automatically.</p>
+
+          <div className="mt-6">
+            <ol className="flex flex-col">
+              {steps.map((label, idx) => {
+                const done = idx <= currentStep;
+                return (
+                  <li key={label} className="flex items-start">
+                    <div className="flex flex-col items-center mr-4">
+                      <div
+                        className={`w-4 h-4 rounded-full ${done ? 'bg-amber-500' : 'bg-gray-300'}`}
+                        aria-hidden
+                      />
+                      {idx < steps.length - 1 && (
+                        <div className={`${idx < currentStep ? 'bg-amber-500' : 'bg-gray-300'} ${idx === 0 ? 'h-4' : 'h-8'} w-px`} />
+                      )}
+                    </div>
+
+                    <div>
+                      <p className={`text-sm font-medium ${done ? 'text-amber-600' : 'text-gray-500'}`}>
+                        {label}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         </div>
       </main>
     </div>
