@@ -6,15 +6,18 @@ const Status: NextPage = () => {
   const steps = [
     'Waiting confirmation by the restaurant',
     'Order confirmed',
+    'Driver is heading to your place',
   ];
   const [currentStep, setCurrentStep] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCurrentStep(1);
-    }, 5000);
-    return () => clearTimeout(timer);
+    const t1 = setTimeout(() => setCurrentStep(1), 5000);
+    const t2 = setTimeout(() => setCurrentStep(2), 10000);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
   return (
@@ -57,7 +60,7 @@ const Status: NextPage = () => {
                           aria-hidden
                         />
                         {idx < currentStep && (
-                          <div className={`${'bg-gray-300'} ${idx === 0 ? 'h-4' : 'h-8'} w-px`} />
+                          <div className={`bg-gray-300 h-4 w-px`} />
                         )}
                       </div>
 
