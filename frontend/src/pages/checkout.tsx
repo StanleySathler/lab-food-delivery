@@ -84,6 +84,7 @@ const Checkout: NextPage = () => {
                   id="expiry"
                   name="expiry"
                   type="text"
+                  inputMode="numeric"
                   placeholder="MM / YY"
                   value={expiry}
                   onChange={handleExpiryChange}
