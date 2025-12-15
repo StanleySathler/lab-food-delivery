@@ -10,3 +10,7 @@ export const formatCardExpiryDate = (value: string) => {
   }
   return digits;
 };
+
+export const formatCVC = (value: string) => {
+  return value.replace(/\D/g, "").slice(0, 3);
+};

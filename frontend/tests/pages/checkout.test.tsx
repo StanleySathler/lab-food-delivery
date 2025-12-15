@@ -49,4 +49,11 @@ describe('Checkout', () => {
     await userEvent.type(expiryInput, '1230');
     expect(expiryInput).toHaveValue('12/30');
   });
+
+  it('should apply mask to cvc field', async () => {
+    setup();
+    const cvcInput = await screen.findByLabelText('CVC');
+    await userEvent.type(cvcInput, '1234');
+    expect(cvcInput).toHaveValue('123');
+  });
 });
