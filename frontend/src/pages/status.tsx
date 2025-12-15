@@ -44,28 +44,31 @@ const Status: NextPage = () => {
 
           <div className="mt-6">
             <ol className="flex flex-col">
-              {steps.map((label, idx) => {
-                const done = idx <= currentStep;
-                return (
-                  <li key={label} className="flex items-start">
-                    <div className="flex flex-col items-center mr-4">
-                      <div
-                        className={`w-4 h-4 rounded-full ${done ? 'bg-amber-500' : 'bg-gray-300'}`}
-                        aria-hidden
-                      />
-                      {idx < steps.length - 1 && (
-                        <div className={`${idx < currentStep ? 'bg-amber-500' : 'bg-gray-300'} ${idx === 0 ? 'h-4' : 'h-8'} w-px`} />
-                      )}
-                    </div>
+              {steps
+                .map((label, idx) => ({ label, idx }))
+                .filter(({ idx }) => idx <= currentStep)
+                .map(({ label }, idx) => {
+                  const isCurrent = idx === currentStep;
+                  return (
+                    <li key={label} className="flex items-center">
+                      <div className="flex flex-col items-center mr-4">
+                        <div
+                          className={`w-4 h-4 rounded-full ${isCurrent ? 'bg-amber-500' : 'bg-gray-300'}`}
+                          aria-hidden
+                        />
+                        {idx < currentStep && (
+                          <div className={`${'bg-gray-300'} ${idx === 0 ? 'h-4' : 'h-8'} w-px`} />
+                        )}
+                      </div>
 
-                    <div>
-                      <p className={`text-sm font-medium ${done ? 'text-amber-600' : 'text-gray-500'}`}>
-                        {label}
-                      </p>
-                    </div>
-                  </li>
-                );
-              })}
+                      <div>
+                        <p className={`text-sm font-medium ${isCurrent ? 'text-amber-600' : 'text-gray-500'}`}>
+                          {label}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
             </ol>
           </div>
         </div>
