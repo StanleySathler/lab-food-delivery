@@ -4,16 +4,23 @@ A demo app for food delivery, inspired by [iFood](https://www.ifood.com.br/) and
 
 See it live at: [https://lab-food-delivery.vercel.app/](https://lab-food-delivery.vercel.app/)
 
-## Stack
+## Frontend
 
-- Next.js 16;
+Built with:
+
+- Next.js;
 - TypeScript;
 - Tailwind CSS;
 
-## Automations
+Tests:
 
-- Automated tests run on every PR and every push to 'main';
-- Every push to 'main' is automatically deployed to Vercel;
+- Run on every PR, and every push to 'main';
+- No mocks, to provide maximum confidence and mimic real user behavior;
+- Only API calls are mocked, with MSW;
+
+Deployment:
+
+- Deployed automatically on every push to 'main';
 
 ## Developing locally
 
