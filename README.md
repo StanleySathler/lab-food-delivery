@@ -1,6 +1,6 @@
 # lab-food-delivery
 
-A demo app for food delivery, inspired by [iFood](https://www.ifood.com.br/) and [UberEats](https://www.ubereats.com/br/).
+A demo app for food delivery - just like [UberEats](https://www.ubereats.com/br/).
 
 See it live at: [https://lab-food-delivery.vercel.app/](https://lab-food-delivery.vercel.app/)
 
